@@ -11,6 +11,17 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
+    
+    public void Quit()
+    {
+#if !UNITY_WEBGL
+        Application.Quit();
+#endif
+    }
+    public void StartNewGame()
+    {
+        LoadStage(2);
+    }
     void Start()
     {
         LoadGame();
@@ -35,6 +46,13 @@ public class GameManager : MonoBehaviour
         if (currentStage < SceneManager.sceneCountInBuildSettings)
             LoadStage(currentStage++);
         else LoadStage(1);
+    }
+
+    public bool StageCheck(int input)
+    {
+        if (input > highestStage)
+            return true;
+        else return false;
     }
 
     public void SaveGame()

@@ -67,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     int gunDamage = 9; 
-[SerializeField] LayerMask environmentMask,enemyMask;
-[SerializeField] float groundCheckRange = 1;
     bool GroundCheck()
     {
         RaycastHit groundCheck;
@@ -80,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position,-transform.up,Color.red,groundCheckRange);
         return false;
     }
-    [SerializeField] float moveSpeed = 10;
     
     // Update is called once per frame
     void Update()
@@ -98,35 +95,44 @@ public class PlayerMovement : MonoBehaviour
             // charControl.MovePosition(Vector3.down*(9.8f*9.8f));
 
         }
-        float moveHor = Input.GetAxisRaw("Horizontal");
-        
-        float moveVert = Input.GetAxisRaw("Vertical");
-        
-        float lookHor = Input.GetAxisRaw("Mouse X");
-        float lookVert = Input.GetAxisRaw("Mouse Y");
-
-        float joyLookHor = Input.GetAxisRaw("Joy RX");
-        float joyLookVert = Input.GetAxisRaw("Joy RY");
-        
-        if(Input.GetButton("Fire1")&&CanFire())
+        float moveHor = 0f, moveVert = 0f, lookHor = 0f, lookVert = 0f, joyLookHor = 0f, joyLookVert=0f;
+        if(inputEnabled)
         {
-            Fire();
-        }
 
+            moveHor = Input.GetAxisRaw("Horizontal");
+        
+            moveVert = Input.GetAxisRaw("Vertical");
 
-
-        float swapRange = 100;
-        if(Input.GetButtonDown("Swap"))
-        {
-            //get 
-            RaycastHit swapCheck;
-            Physics.Raycast(camDir.position,camDir.forward,out swapCheck,swapRange);
-            if (swapCheck.transform.TryGetComponent(out HealthStats targetHealth))
+            if (!joystickEnabled)
             {
-                Healthbar currentHealth = GetComponent<HealthStats>().CurrentHealthbar;
-                FindObjectOfType<SwapManager>().Swap(currentHealth, targetHealth.CurrentHealthbar);
+                lookHor = Input.GetAxisRaw("Mouse X");
+                lookVert = Input.GetAxisRaw("Mouse Y");
+            }
+
+            else
+            {
+                lookHor = Input.GetAxisRaw("Joy RX");
+                lookVert = Input.GetAxisRaw("Joy RY");
+            }
+            if(Input.GetButton("Fire1")&&CanFire())
+            {
+                Fire();
+            }
+
+            if(Input.GetButtonDown("Swap"))
+            {
+                //get 
+                RaycastHit swapCheck;
+                Physics.Raycast(camDir.position,camDir.forward,out swapCheck,swapRange);
+                if (swapCheck.transform.TryGetComponent(out HealthStats targetHealth))
+                {
+                    Healthbar currentHealth = GetComponent<HealthStats>().CurrentHealthbar;
+                    FindObjectOfType<SwapManager>().Swap(currentHealth, targetHealth.CurrentHealthbar);
+                }
             }
         }
+
+
         stamina = Mathf.Clamp(stamina + Time.deltaTime,0,maxStamina);
         Vector3 moveDir = new Vector3(moveHor, 0, moveVert);
         moveDir = moveDir.x * camDir.right.normalized + moveDir.z * camDir.forward.normalized;
@@ -148,9 +154,16 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(joyLookHor + " "+joyLookVert);
    
 
-    }
+    }   
+    [SerializeField] float moveSpeed = 10;
+    [SerializeField] LayerMask environmentMask,enemyMask;
+    [SerializeField] float groundCheckRange = 1;
+    [Header("Raycasting stats")]
+    [SerializeField] float swapRange = 100;
+    [Header("Look/turn controls")]
+    bool inputEnabled=true;
+    [SerializeField] bool joystickEnabled = false;
     [SerializeField] float lookSpeed = 100;
     [SerializeField] float yAxisClamp = 45;
-    [SerializeField] float fallForceRate,moveBaseRate,downMomentum,maxSpeed;
-    bool inputEnabled=true;
+    [SerializeField] float fallForceRate,downMomentum,maxSpeed;
 }
