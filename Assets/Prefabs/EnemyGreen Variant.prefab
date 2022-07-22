@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5666683666477949790, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_Name
-      value: EnemyGreen
+      value: EnemyGreen Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7566300050256176358, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_RootOrder
@@ -59,3 +59,23 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+--- !u!1 &4700285884325403449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5666683666477949790, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+  m_PrefabInstance: {fileID: 1125583104670611559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2577501106989863323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700285884325403449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafef1c1ffe0eb540a9db49c75813f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolve: 0
+  maxDissolve: 0.6
+  minDissolve: -0.9
