@@ -82,8 +82,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeToNextFire > 0) timeToNextFire -= Time.deltaTime;
-
         if(GroundCheck())
         {
             
