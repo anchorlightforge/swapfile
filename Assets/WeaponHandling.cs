@@ -88,14 +88,14 @@ public class WeaponHandling : MonoBehaviour
         Vector3 offset = CalculateSpread(weapons[currentWeapon].spread);
         for (int i = 0; i < weapons[currentWeapon].flechettes; i++)
         {
-            if (Physics.Raycast(transform.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
+            if (Physics.Raycast(camDir.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
             {
-                if (gunCheck.transform.TryGetComponent(out HealthStats enemy))
+                if (gunCheck.transform.TryGetComponent(out Enemy enemy))
                     enemy.TakeDamage(weapons[currentWeapon].damage);
                 //deal damage if enemy found
             }
         }
-        Debug.DrawRay(transform.position, camDir.forward + offset, Color.yellow, .5f);
+        Debug.DrawRay(camDir.position, camDir.forward + offset, Color.yellow, .5f);
     }
 
     bool CanFire()
