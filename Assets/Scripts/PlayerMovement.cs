@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     float stamina; float maxStamina;
     
-    bool CanFire()
+   /* bool CanFire()
     {
         //check stamina
         if (gunStaminaCost > stamina)
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             return false;
         
         return true;
-    }
+    }*/
     [SerializeField] float gunStaminaCost = 7f;
     [SerializeField] ParticleSystem gunFX;
     public void Fire()
@@ -114,11 +114,11 @@ public class PlayerMovement : MonoBehaviour
                 lookHor = Input.GetAxisRaw("Joy RX");
                 lookVert = Input.GetAxisRaw("Joy RY");
             }
-            if(Input.GetButton("Fire1")&&CanFire())
+  /*          if(Input.GetButton("Fire1")&&CanFire())
             {
                 Fire();
             }
-
+*/
             if(Input.GetButtonDown("Swap"))
             {
                 //get 
