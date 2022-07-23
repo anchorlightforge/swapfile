@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WeaponHandling : MonoBehaviour
 {
+    [SerializeField] GunEffects gunModels;
     Transform camDir;
     [SerializeField] LayerMask enemyMask;
     // Start is called before the first frame update
@@ -16,6 +17,9 @@ public class WeaponHandling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (timeToNextFire > 0) timeToNextFire -= Time.deltaTime;
+
         if (Input.GetButton("Fire1") && CanFire())
         {
             Fire();
@@ -38,7 +42,7 @@ public class WeaponHandling : MonoBehaviour
         public float spread;
     }
 
-    Weapon[] weapons;
+    [SerializeField] Weapon[] weapons;
     int currentWeapon;
     [SerializeField] ParticleSystem gunFX;
     float timeToNextFire;
@@ -47,7 +51,14 @@ public class WeaponHandling : MonoBehaviour
 
     public void SwitchWeapon (int newWeapon)
     {
+        if (weapons[newWeapon].unlocked)
+            gunModels.SwitchWeapon(newWeapon);
+        currentWeapon = newWeapon;
+    }
 
+    Vector3 CalculateSpread(float spread)
+    {
+        return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
     }
 
     public void Fire()
@@ -56,12 +67,14 @@ public class WeaponHandling : MonoBehaviour
         timeToNextFire = weapons[currentWeapon].fireRate;
         gunFX.Play();
         RaycastHit gunCheck;
-        if (Physics.Raycast(transform.position, camDir.forward, out gunCheck, weapons[currentWeapon].range, enemyMask))
+        Vector3 offset = CalculateSpread(weapons[currentWeapon].spread);
+        if (Physics.Raycast(transform.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
         {
             if (gunCheck.transform.TryGetComponent(out HealthStats enemy))
                 enemy.TakeDamage(weapons[currentWeapon].damage);
             //deal damage if enemy found
         }
+        Debug.DrawRay(transform.position, camDir.forward + offset, Color.yellow, .5f);
     }
 
     bool CanFire()
