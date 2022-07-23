@@ -24,7 +24,22 @@ public class WeaponHandling : MonoBehaviour
         {
             Fire();
         }
-
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SwitchWeapon(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SwitchWeapon(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SwitchWeapon(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SwitchWeapon(3);
+        }
 
     }
 
@@ -52,8 +67,11 @@ public class WeaponHandling : MonoBehaviour
     public void SwitchWeapon (int newWeapon)
     {
         if (weapons[newWeapon].unlocked)
+        {
+
             gunModels.SwitchWeapon(newWeapon);
-        currentWeapon = newWeapon;
+            currentWeapon = newWeapon;
+        }
     }
 
     Vector3 CalculateSpread(float spread)
@@ -68,11 +86,14 @@ public class WeaponHandling : MonoBehaviour
         gunFX.Play();
         RaycastHit gunCheck;
         Vector3 offset = CalculateSpread(weapons[currentWeapon].spread);
-        if (Physics.Raycast(transform.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
+        for (int i = 0; i < weapons[currentWeapon].flechettes; i++)
         {
-            if (gunCheck.transform.TryGetComponent(out HealthStats enemy))
-                enemy.TakeDamage(weapons[currentWeapon].damage);
-            //deal damage if enemy found
+            if (Physics.Raycast(transform.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
+            {
+                if (gunCheck.transform.TryGetComponent(out HealthStats enemy))
+                    enemy.TakeDamage(weapons[currentWeapon].damage);
+                //deal damage if enemy found
+            }
         }
         Debug.DrawRay(transform.position, camDir.forward + offset, Color.yellow, .5f);
     }

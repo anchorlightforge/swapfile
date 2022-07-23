@@ -13,6 +13,7 @@ public class GunEffects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SwitchWeapon(0);
         foreach (AnimatedPiece piece in fistPieces)
         {
             //set offset
