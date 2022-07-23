@@ -6,11 +6,31 @@ public class Enemy_Standard : Enemy
 {
     protected override void AttackPlayer()
     {
-        base.AttackPlayer();
+        agent.SetDestination(transform.position);
+
+        transform.LookAt(player);
+
+        if (!alreadyAttacked)
+        {
+            // Attack Code
+            Debug.Log("The Enemy Attacks");
+
+            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+
     }
 
     protected override void ChasePlayer()
     {
         base.ChasePlayer();
+    }
+    protected override void Update()
+    {
+        base.Update();
     }
 }

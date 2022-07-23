@@ -11,10 +11,13 @@ public enum EnemyModes
     Attacking,
     Gathering,
     HasHealth,
+    Recovering,
 }
 public class Enemy : MonoBehaviour,IHealth
 {
-    [SerializeField] Healthbar currentHealthBar;
+    public Rigidbody rb;
+
+   public Healthbar currentHealthBar;
     public NavMeshAgent agent;
 
     public Transform player;
@@ -24,7 +27,7 @@ public class Enemy : MonoBehaviour,IHealth
 
     [Header("Attacking")]
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
+   protected bool alreadyAttacked;
     public GameObject projectile;
 
     [Header("States")]
@@ -32,8 +35,8 @@ public class Enemy : MonoBehaviour,IHealth
     public bool playerInAttackRange;
 
     
-    public float staggerTime;
-    public bool isStaggered;
+    //public float staggerTime;
+    //public bool isStaggered;
 
     // save in sightrange for drones
     public EnemyModes currentMode;
@@ -41,6 +44,7 @@ public class Enemy : MonoBehaviour,IHealth
     public virtual void Awake()
     {
          agent= GetComponent<NavMeshAgent>();
+        rb= GetComponent<Rigidbody>();
         currentMode = EnemyModes.Inactive;
     }
 
@@ -93,7 +97,7 @@ public class Enemy : MonoBehaviour,IHealth
         if (!alreadyAttacked)
         {
             // Attack Code
-
+            Debug.Log("The Enemy Attacks");
 
             alreadyAttacked=true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

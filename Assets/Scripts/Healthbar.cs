@@ -21,10 +21,10 @@ public class Healthbar : MonoBehaviour, IHealth
     MeshRenderer _rend;
     Rigidbody rb;
 
-    int controllerHealth;
-    [SerializeField] int maxControllerHealth;
+    [HideInInspector] public int controllerHealth;
+    public int maxControllerHealth;
 
-    int hbHealth;
+    [HideInInspector] public int hbHealth;
     [SerializeField] int maxHBHealth;
 
     [HideInInspector] public int containedRemainingHealth;

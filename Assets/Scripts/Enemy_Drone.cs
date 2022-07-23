@@ -16,8 +16,10 @@ public class Enemy_Drone : Enemy
     public bool enemyInRange;
     public float healTimer;
 
+    public Transform firePosition1, firePosition2;
+
     public GameObject healthBarLocation;
-    private LayerMask whatIsHealthBar;
+    [SerializeField] private LayerMask whatIsHealthBar, whatIsEnemy;
 
     private void Start()
     {
@@ -28,6 +30,7 @@ public class Enemy_Drone : Enemy
     {
         healthBarInNabRange = Physics.CheckSphere(transform.position, healthBarNabRange, whatIsHealthBar);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        enemyInRange = Physics.CheckSphere(transform.position, sightRange, whatIsEnemy);
 
         switch (currentMode)
         {
@@ -58,6 +61,7 @@ public class Enemy_Drone : Enemy
                 break;
 
             case EnemyModes.HasHealth:
+
                 break;
         }
     }
@@ -68,7 +72,20 @@ public class Enemy_Drone : Enemy
 
     protected override void AttackPlayer()
     {
-        base.AttackPlayer();
+        agent.SetDestination(transform.position);
+
+        transform.LookAt(player);
+
+        if (!alreadyAttacked)
+        {
+            // Attack Code
+            Debug.Log("The Enemy Attacks");
+            Rigidbody _rb1 = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody _rb2 = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
     }
 
     void SetAndFindNearByHealthBar(GameObject currentHealthBar)
@@ -116,6 +133,48 @@ public class Enemy_Drone : Enemy
 
     void DestributeHealth()
     {
+        if (enemyInRange)
+        {
+            Debug.Log("Enemy In Range of the Drone");
+            if (FindClosestEnemyFromRange() != null)
+            {
+                transform.LookAt(FindClosestEnemyFromRange().gameObject.transform);
+                FindClosestEnemyFromRange().currentHealthBar.Heal((int)currentHealthCapacitor);
+            }
+        }
+    }
 
+    Enemy FindClosestEnemyFromRange()
+    {
+        Enemy closestEnemy = null;
+        Collider[] enemies = Physics.OverlapSphere(transform.position, sightRange, whatIsEnemy);
+        List<Collider> enemyList = new List<Collider>(enemies);
+
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+
+        foreach (Collider c in enemyList)
+        {
+            int cCurrent = c.GetComponent<Enemy>().currentHealthBar.controllerHealth;
+            int cMax = c.GetComponent<Enemy>().currentHealthBar.maxControllerHealth;
+            Transform cTransform = c.transform;
+            float dist = Vector3.Distance(cTransform.position, currentPos);
+
+            // Remove whoever has high health
+            if (cCurrent > cMax - (cMax / 4))
+            {
+                // Possible issue Later
+                enemyList.Remove(c);
+            }
+
+            if (dist < minDist)
+            {
+                tMin = cTransform;
+                minDist = dist;
+                closestEnemy = c.GetComponent<Enemy>();
+            }
+        }
+        return closestEnemy;
     }
 }
