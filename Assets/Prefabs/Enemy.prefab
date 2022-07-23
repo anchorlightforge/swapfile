@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2996719906570521951}
   - component: {fileID: 6645870814107353662}
   - component: {fileID: 5794521807849187589}
-  - component: {fileID: 1710963125160094464}
-  - component: {fileID: 3005532764956941964}
+  - component: {fileID: 1760783591034811325}
+  - component: {fileID: 1076448745700401785}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 8002528019158104494}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2996719906570521951
 MeshFilter:
@@ -101,7 +101,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1710963125160094464
+--- !u!114 &1760783591034811325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,23 +110,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 5666683666477949790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d5a49a6878550441bf476c264570956, type: 3}
+  m_Script: {fileID: 11500000, guid: d3fc9978bfc44684693acf9cc8c9d162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 50
---- !u!114 &3005532764956941964
-MonoBehaviour:
+  currentHealthBar: {fileID: 8002528019158104495}
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  walkPointRange: 0
+  timeBetweenAttacks: 0
+  projectile: {fileID: 0}
+  attackRange: 0
+  playerInAttackRange: 0
+  staggerTime: 0
+  isStaggered: 0
+  currentMode: 0
+--- !u!195 &1076448745700401785
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5666683666477949790}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b3cb7c27aba1b4283fdc1da08d1965, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &7971471275750944926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,6 +215,22 @@ PrefabInstance:
     - target: {fileID: 121291738564921648, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 121291738564921649, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+      propertyPath: maxHBHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 121291738564921649, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+      propertyPath: currentOwner
+      value: 
+      objectReference: {fileID: 5666683666477949790}
+    - target: {fileID: 121291738564921649, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+      propertyPath: maxControllerHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 121291738564921649, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+      propertyPath: containedRemainingHealth
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 121291738564921651, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
       propertyPath: m_Name
@@ -296,3 +337,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 121291738564921648, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
   m_PrefabInstance: {fileID: 7971471275750944926}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8002528019158104495 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 121291738564921649, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+  m_PrefabInstance: {fileID: 7971471275750944926}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002528019158104493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfec474836475741bfc85e3020d88b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

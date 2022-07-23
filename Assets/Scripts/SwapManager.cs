@@ -11,8 +11,8 @@ public class SwapManager : MonoBehaviour
     }
     public void Swap(Healthbar playerHealth, Healthbar oppositeHealth)
     {
-        playerHealth.Owner.GetComponent<HealthStats>().AssignHB(oppositeHealth);
-        oppositeHealth.Owner.GetComponent<HealthStats>().AssignHB(playerHealth);
+        //playerHealth.Owner.GetComponent<HealthStats>().AssignHB(oppositeHealth);
+        //oppositeHealth.Owner.GetComponent<HealthStats>().AssignHB(playerHealth);
     }
     public void FeedMachine(Healthbar playerHealth)
     {
