@@ -21,7 +21,9 @@ public class UIManager : MonoBehaviour
     void SetRoomName()
     {
         int buildIndexNew = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        missionText.SetText(">DIRECTIVE<\n"+rooms[buildIndexNew].SceneName);
+        if (rooms.Length > buildIndexNew)
+            missionText.SetText(">DIRECTIVE L0"+buildIndexNew+"<\n" + rooms[buildIndexNew].SceneName);
+        else missionText.SetText(">DIRECTIVE L0"+buildIndexNew+"<\n+"+UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     // Update is called once per frame

@@ -8,7 +8,10 @@ public class MenuObjs : MonoBehaviour
     void Start()
     {
         foreach (AnimatedPiece piece in GetComponentsInChildren<AnimatedPiece>())
-            piece.Hide(transform.position,true);
+            piece.Hide(transform.position, true);
+        foreach (LineRenderer piece in GetComponentsInChildren<LineRenderer>())
+        { }/* piece.Hide(transform.position, true);*/
+
         StartCoroutine(RandomLogic());
     }
 

@@ -37,12 +37,16 @@ public class GameManager : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
         Time.timeScale = 1;
-        FindObjectOfType<PlayerMovement>().Unpause();
+        var player = FindObjectOfType<PlayerMovement>();
+        if(player!=null) player.Unpause();
     }
 
     public void LoadStage(int nextStageToLoad)
     {
         Unpause();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        if(nextStageToLoad<SceneManager.sceneCountInBuildSettings)
         SceneManager.LoadScene(nextStageToLoad);
     }
 
@@ -62,10 +66,17 @@ public class GameManager : MonoBehaviour
     public void StageComplete()
     {
         highestStage++;
+        SaveGame();
         int currentStage = SceneManager.GetActiveScene().buildIndex;
         if (currentStage < SceneManager.sceneCountInBuildSettings)
             LoadStage(currentStage++);
         else LoadStage(1);
+    }
+
+    public void ContinueGame()
+    {
+        LoadGame();
+        LoadStage(highestStage);
     }
 
     public bool StageCheck(int input)

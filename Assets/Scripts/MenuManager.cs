@@ -19,6 +19,10 @@ public class MenuManager : MonoBehaviour
         }
         menuItems[menutoggle].SetActive(true);
     }
+    public void ContinueLastLevel()
+    {
+        FindObjectOfType<GameManager>().ContinueGame();
+    }
     public void Quit()
     {
         FindObjectOfType<GameManager>().Quit();

@@ -20,8 +20,8 @@ namespace Game.Music
         // Start is called before the first frame update
         void Start()
         {
-            StartCoroutine(MusicChecker());
             enemyMan = FindObjectOfType<EnemyManager>();
+            StartCoroutine(MusicChecker());
         }
 
         public void ShootGun()
@@ -36,13 +36,17 @@ namespace Game.Music
                 yield return new WaitForSeconds(2);
                 if (lastTimePlayerAttacked < 5) StartCoroutine(FadeIn(shootAudio));
                 else StartCoroutine(FadeOut(shootAudio));
+                if(enemyMan!=null)
+                {
                 if (enemyMan.EnemyActive())
+
                 {
                     StartCoroutine(FadeIn(combatAudio));
                 }
                 else
                 {
                     StartCoroutine(FadeOut(combatAudio));
+                }
                 }
             }
         }
