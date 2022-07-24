@@ -144,7 +144,7 @@ public class Enemy_Drone : Enemy
         {
             currentHealthCapacitor = Mathf.Clamp(currentHealthCapacitor + healthBarLocation.GetComponent<Healthbar>().containedRemainingHealth, 0, maxHealthCapacitor);
             Destroy(healthBarLocation);
-            StartCoroutine(EFlash(Color.green,greenLightMateral));
+            StartCoroutine(EFlash(Color.green));
             currentMode = EnemyModes.HasHealth;
         }
         else
@@ -163,7 +163,7 @@ public class Enemy_Drone : Enemy
             {
                 transform.LookAt(FindClosestEnemyFromRange().gameObject.transform);
                 FindClosestEnemyFromRange().currentHealthBar.Heal((int)currentHealthCapacitor);
-                FindClosestEnemyFromRange().EFlash(Color.green, greenLightMateral);
+                FindClosestEnemyFromRange().EFlash(Color.green);
                 currentMode=EnemyModes.Active;
             }
         }
@@ -203,7 +203,7 @@ public class Enemy_Drone : Enemy
         return closestEnemy;
     }
 
-    public override IEnumerator EFlash(Color coloring, Material materialling)
+    public override IEnumerator EFlash(Color coloring,Material materialling=null)
     {
         droneRenderer.material.color = coloring;
         yield return new WaitForSeconds(flashTime);

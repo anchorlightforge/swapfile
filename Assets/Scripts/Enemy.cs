@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour, IHealth
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    public virtual IEnumerator EFlash(Color coloring, Material materialling)
+    public virtual IEnumerator EFlash(Color coloring, Material materialling = null)
     {
         foreach(MeshRenderer enemyMaterial in enemyMaterials)
         enemyMaterial.material.color = coloring;
