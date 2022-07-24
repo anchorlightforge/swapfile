@@ -144,6 +144,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1822639494375413343}
     m_Modifications:
+    - target: {fileID: 3449253710701861601, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4700285884325403449, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
       propertyPath: m_Name
       value: EnemyGreen Variant
@@ -169,9 +173,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2768153728811153556, guid: fe9a573e5eee04a409096388a5b6e541, type: 3}
     - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+<<<<<<< HEAD
       propertyPath: currentMode
       value: 1
       objectReference: {fileID: 0}
+=======
+      propertyPath: enemyMateral
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f4410b877753f046bb0e8b9810b016b, type: 2}
+    - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+      propertyPath: droneRenderer
+      value: 
+      objectReference: {fileID: 5399656950372429175}
+    - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+      propertyPath: enemyRenderer
+      value: 
+      objectReference: {fileID: 3933160965220863439}
+>>>>>>> 5ea8427354571513da1aad78ff5068a8ecd04403
     - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
       propertyPath: firePosition1
       value: 
@@ -181,9 +199,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1060688606370479342}
     - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+<<<<<<< HEAD
       propertyPath: timeBetweenAttacks
       value: 0.75
       objectReference: {fileID: 0}
+=======
+      propertyPath: greenLightMateral
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a7fa0a58ab922e479a27b95153b7692, type: 2}
+>>>>>>> 5ea8427354571513da1aad78ff5068a8ecd04403
     - target: {fileID: 7394411480606088321, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -235,6 +259,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+--- !u!23 &3933160965220863439 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3449253710701861601, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+  m_PrefabInstance: {fileID: 1822639494763452206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5399656950372429175 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6027012114622970457, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+  m_PrefabInstance: {fileID: 1822639494763452206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9211386152393739183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7394411480606088321, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}

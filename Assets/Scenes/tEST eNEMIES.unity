@@ -730,6 +730,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1644798424}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 8758590524243547717, guid: dd1f6b6ba699a7e4fa6a8b7284d9ba64, type: 3}
+      propertyPath: currentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758590524243547717, guid: dd1f6b6ba699a7e4fa6a8b7284d9ba64, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 0.75
+      objectReference: {fileID: 0}
+>>>>>>> 5ea8427354571513da1aad78ff5068a8ecd04403
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: dd1f6b6ba699a7e4fa6a8b7284d9ba64, type: 3}

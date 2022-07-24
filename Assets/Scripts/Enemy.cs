@@ -13,11 +13,11 @@ public enum EnemyModes
     HasHealth,
     Recovering,
 }
-public class Enemy : MonoBehaviour,IHealth
+public class Enemy : MonoBehaviour, IHealth
 {
     public Rigidbody rb;
 
-   public Healthbar currentHealthBar;
+    public Healthbar currentHealthBar;
     public NavMeshAgent agent;
 
     public Transform player;
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour,IHealth
 
     [Header("Attacking")]
     public float timeBetweenAttacks;
-   [SerializeField] protected bool alreadyAttacked;
+    [SerializeField] protected bool alreadyAttacked;
     public GameObject projectile;
 
     [Header("States")]
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour,IHealth
     public bool playerInAttackRange;
 
 
-    
+
     //public float staggerTime;
     //public bool isStaggered;
 
@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour,IHealth
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+
         currentMode = EnemyModes.Inactive;
         enemyMaterials = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < enemyMaterials.Length; i++)
@@ -127,10 +128,10 @@ public class Enemy : MonoBehaviour,IHealth
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position,attackRange);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    public virtual IEnumerator EFlash(Color coloring)
+    public virtual IEnumerator EFlash(Color coloring, Material materialling)
     {
         foreach(MeshRenderer enemyMaterial in enemyMaterials)
         enemyMaterial.material.color = coloring;

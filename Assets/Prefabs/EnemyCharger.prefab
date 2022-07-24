@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1444641897469542147, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548453493184347340, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5666683666477949790, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_Name
       value: EnemyCharger
@@ -15,6 +23,22 @@ PrefabInstance:
     - target: {fileID: 6645870814107353662, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645870814107353662, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360168248370991155, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360168248370991155, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360168248370991155, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 7566300050256176358, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_RootOrder
@@ -64,6 +88,11 @@ PrefabInstance:
     - {fileID: 1760783591034811325, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+--- !u!137 &5050745792705582676 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8034516159410645189, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+  m_PrefabInstance: {fileID: 2997021758421040785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5087167332955588414 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8002528019158104495, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
@@ -130,6 +159,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkPointRange: 0
+<<<<<<< HEAD:Assets/Prefabs/EnemyCharger.prefab
   enemyMaterials:
   - {fileID: 0}
   - {fileID: 0}
@@ -140,6 +170,13 @@ MonoBehaviour:
   - {fileID: 0}
   flashTime: 0
   timeBetweenAttacks: 2
+=======
+  enemyRenderer: {fileID: 5050745792705582676}
+  enemyMateral: {fileID: 2100000, guid: 4f4410b877753f046bb0e8b9810b016b, type: 2}
+  greenLightMateral: {fileID: 2100000, guid: 0a7fa0a58ab922e479a27b95153b7692, type: 2}
+  flashTime: 1.5
+  timeBetweenAttacks: 5
+>>>>>>> 5ea8427354571513da1aad78ff5068a8ecd04403:Assets/Prefabs/EnemyPurple Variant.prefab
   alreadyAttacked: 0
   projectile: {fileID: 0}
   attackRange: 15
