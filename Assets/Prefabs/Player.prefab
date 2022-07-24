@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerEyes: {fileID: 2310816237614684151}
-  currentHealthbar: {fileID: 0}
+  currentHealthbar: {fileID: 2431733991443434560}
   fireRate: 0
   gunRange: 200
   gunStaminaCost: 7
@@ -8139,6 +8139,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+--- !u!114 &2431733991443434560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 121291738564921649, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+  m_PrefabInstance: {fileID: 2310816237264864625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfec474836475741bfc85e3020d88b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2431733991443434561 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 121291738564921648, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}

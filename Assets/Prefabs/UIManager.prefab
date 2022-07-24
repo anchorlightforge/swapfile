@@ -5649,7 +5649,11 @@ MonoBehaviour:
   pistolAmmo: {fileID: 4298323929420436721}
   mgAmmo: {fileID: 4298323930741765398}
   sgAmmo: {fileID: 4298323930447354610}
-  rooms: []
+  rooms:
+  - SceneName: Boot
+  - SceneName: Main Menu
+  - SceneName: Basic Training
+  - SceneName: The Delve
   menuPanels:
   - {fileID: 4298323929463075083}
   - {fileID: 4298323930593713923}
