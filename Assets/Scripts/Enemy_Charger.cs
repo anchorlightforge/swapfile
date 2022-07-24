@@ -6,11 +6,11 @@ public class Enemy_Charger : Enemy
 {
     [SerializeField] float chargeForce;
     [SerializeField] int chargeAttackDamage;
-    [SerializeField] float chargeAttackRange;
     [SerializeField] bool isCharging = false;
     protected override void ChasePlayer()
     {
         base.ChasePlayer();
+        transform.LookAt(player);
     }
 
     protected override void AttackPlayer()
@@ -21,27 +21,33 @@ public class Enemy_Charger : Enemy
 
         if (!alreadyAttacked)
         {
-            transform.LookAt(player);
+            if (!isCharging)
+            {
+                transform.LookAt(player);
+            }
 
             ///Attack code here
-            ChargeAttack();
-            //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            isCharging = true;
+            StartCoroutine(EFlash(Color.red));
             ///End of attack code
-            if (rb.velocity.magnitude < 15.0f)
-            {
-                alreadyAttacked = true;
-                isCharging = false;
-            }
+
+            alreadyAttacked = true;
+
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
+    protected override void ResetAttack()
+    {
+        base.ResetAttack();
+        rb.velocity = Vector3.zero;
+        enemyMaterial.material.color = originalColor;
+        isCharging = false;
+    }
     void ChargeAttack()
     {
-        rb.AddForce(transform.forward* chargeForce, ForceMode.Impulse);
-        isCharging = true;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(transform.forward * chargeForce, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -51,6 +57,21 @@ public class Enemy_Charger : Enemy
             var hitObject = collision.gameObject.GetComponent<IHealth>();
             if (hitObject == null) return;
             hitObject.TakeDamage(chargeAttackDamage);
+            Rigidbody hitRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+            if (hitRigidbody == null) return;
+            hitRigidbody.AddForce(transform.forward * rb.velocity.magnitude, ForceMode.Impulse);
         }
     }
+
+    public override IEnumerator EFlash(Color coloring)
+    {
+        enemyMaterial.material.color = coloring;
+        transform.LookAt(player);
+        yield return new WaitForSeconds(1f);
+
+        ChargeAttack();
+    }
+
+    //public Color Lerp(Color firstColor, Color secondColor, float speed) =>  Color.Lerp(firstColor, secondColor, Mathf.Sin(Time.time* speed));
+
 }

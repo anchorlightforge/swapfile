@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy_Standard : Enemy
 {
+
     protected override void AttackPlayer()
     {
         agent.SetDestination(transform.position);
@@ -15,9 +16,12 @@ public class Enemy_Standard : Enemy
             // Attack Code
             Debug.Log("The Enemy Attacks");
 
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            if (projectile != null)
+            {
+                Rigidbody _rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                _rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+                _rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            }
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
