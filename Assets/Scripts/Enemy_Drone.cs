@@ -16,18 +16,26 @@ public class Enemy_Drone : Enemy
     public bool enemyInRange;
     public float healTimer;
 
+    public Transform Turrets;
+
+    public Transform firePosition1, firePosition2;
+
     public GameObject healthBarLocation;
-    private LayerMask whatIsHealthBar;
+    [SerializeField] private LayerMask whatIsHealthBar, whatIsEnemy;
+
+    public float speed;
 
     private void Start()
     {
-        Healthbar.m_MyEvent.AddListener(SetAndFindNearByHealthBar);
+        if (Healthbar.m_MyEvent != null)
+            Healthbar.m_MyEvent.AddListener(SetAndFindNearByHealthBar);
     }
 
     protected override void Update()
     {
         healthBarInNabRange = Physics.CheckSphere(transform.position, healthBarNabRange, whatIsHealthBar);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        enemyInRange = Physics.CheckSphere(transform.position, sightRange, whatIsEnemy);
 
         switch (currentMode)
         {
@@ -51,6 +59,8 @@ public class Enemy_Drone : Enemy
 
             case EnemyModes.Attacking:
                 AttackPlayer();
+                if (!playerInAttackRange)
+                    currentMode = EnemyModes.Active;
                 break;
 
             case EnemyModes.Gathering:
@@ -58,17 +68,42 @@ public class Enemy_Drone : Enemy
                 break;
 
             case EnemyModes.HasHealth:
+                DestributeHealth();
                 break;
         }
     }
     protected override void ChasePlayer()
     {
         base.ChasePlayer();
+        Vector3 direction = player.position - transform.position;
+        Quaternion toRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
     }
 
     protected override void AttackPlayer()
     {
-        base.AttackPlayer();
+        agent.SetDestination(transform.position);
+
+        Vector3 direction = player.position - transform.position;
+        Quaternion toRotation=Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+
+        //transform.LookAt(player);
+
+        if (!alreadyAttacked)
+        {
+            // Attack Code
+            Debug.Log("The Enemy Attacks");
+            if (projectile != null)
+            {
+                Rigidbody _rb1 = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                Rigidbody _rb2 = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                _rb1.AddForce(transform.forward * 32f, ForceMode.Impulse);
+                _rb2.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            }
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
     }
 
     void SetAndFindNearByHealthBar(GameObject currentHealthBar)
@@ -116,6 +151,55 @@ public class Enemy_Drone : Enemy
 
     void DestributeHealth()
     {
+        if (enemyInRange)
+        {
+            Debug.Log("Enemy In Range of the Drone");
+            if (FindClosestEnemyFromRange() != null)
+            {
+                transform.LookAt(FindClosestEnemyFromRange().gameObject.transform);
+                FindClosestEnemyFromRange().currentHealthBar.Heal((int)currentHealthCapacitor);
+                currentMode=EnemyModes.Active;
+            }
+        }
+    }
 
+    Enemy FindClosestEnemyFromRange()
+    {
+        Enemy closestEnemy = null;
+        Collider[] enemies = Physics.OverlapSphere(transform.position, sightRange, whatIsEnemy);
+        List<Collider> enemyList = new List<Collider>(enemies);
+
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+
+        foreach (Collider c in enemyList)
+        {
+            int cCurrent = c.GetComponent<Enemy>().currentHealthBar.controllerHealth;
+            int cMax = c.GetComponent<Enemy>().currentHealthBar.maxControllerHealth;
+            Transform cTransform = c.transform;
+            float dist = Vector3.Distance(cTransform.position, currentPos);
+
+            // Remove whoever has high health
+            if (cCurrent > cMax - (cMax / 4))
+            {
+                // Possible issue Later
+                enemyList.Remove(c);
+            }
+
+            if (dist < minDist)
+            {
+                tMin = cTransform;
+                minDist = dist;
+                closestEnemy = c.GetComponent<Enemy>();
+            }
+        }
+        return closestEnemy;
+    }
+
+    IEnumerator EFlash(Color coloring)
+    {
+        enemyMaterial.material.color = coloring;
+        yield return new WaitForSeconds(5);
     }
 }

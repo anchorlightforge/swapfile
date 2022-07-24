@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5666683666477949790, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_Name
-      value: EnemyPurple
+      value: EnemyPurple Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7566300050256176358, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7566300050256176358, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56,6 +56,82 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1760783591034811325, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+--- !u!114 &5087167332955588414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8002528019158104495, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+  m_PrefabInstance: {fileID: 2997021758421040785}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfec474836475741bfc85e3020d88b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &5344564237114826123 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7186684742923789082, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+  m_PrefabInstance: {fileID: 2997021758421040785}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7436451977768230351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5666683666477949790, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+  m_PrefabInstance: {fileID: 2997021758421040785}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &5961471728404153819
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7436451977768230351}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &7539223093801046318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7436451977768230351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503ea883468f8f043b2920657f530568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5344564237114826123}
+  currentHealthBar: {fileID: 5087167332955588414}
+  agent: {fileID: 5961471728404153819}
+  player: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  walkPointRange: 0
+  timeBetweenAttacks: 5
+  alreadyAttacked: 0
+  projectile: {fileID: 0}
+  attackRange: 10
+  playerInAttackRange: 0
+  currentMode: 0
+  chargeForce: 20
+  chargeAttackDamage: 30
+  isCharging: 0

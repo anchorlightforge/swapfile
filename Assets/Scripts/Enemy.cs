@@ -11,37 +11,48 @@ public enum EnemyModes
     Attacking,
     Gathering,
     HasHealth,
+    Recovering,
 }
 public class Enemy : MonoBehaviour,IHealth
 {
-    [SerializeField] Healthbar currentHealthBar;
+    public Rigidbody rb;
+
+   public Healthbar currentHealthBar;
     public NavMeshAgent agent;
 
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float walkPointRange;
+    public Renderer enemyMaterial;
+    protected Color originalColor;
+    public float flashTime;
 
     [Header("Attacking")]
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
+   [SerializeField] protected bool alreadyAttacked;
     public GameObject projectile;
 
     [Header("States")]
     public float attackRange;
     public bool playerInAttackRange;
 
+
     
-    public float staggerTime;
-    public bool isStaggered;
+    //public float staggerTime;
+    //public bool isStaggered;
 
     // save in sightrange for drones
     public EnemyModes currentMode;
 
     public virtual void Awake()
     {
-         agent= GetComponent<NavMeshAgent>();
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
         currentMode = EnemyModes.Inactive;
+        enemyMaterial = GetComponent<Renderer>();
+        originalColor = enemyMaterial.material.color;
     }
 
     protected virtual void Update()
@@ -65,6 +76,8 @@ public class Enemy : MonoBehaviour,IHealth
 
             case EnemyModes.Attacking:
                 AttackPlayer();
+                if (!playerInAttackRange)
+                    currentMode = EnemyModes.Active;
                 break;
         }
     }
@@ -93,9 +106,9 @@ public class Enemy : MonoBehaviour,IHealth
         if (!alreadyAttacked)
         {
             // Attack Code
+            Debug.Log("The Enemy Attacks");
 
-
-            alreadyAttacked=true;
+            alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
@@ -109,5 +122,10 @@ public class Enemy : MonoBehaviour,IHealth
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,attackRange);
+    }
+
+    public virtual IEnumerator EFlash(Color coloring)
+    {
+        yield return null;
     }
 }
