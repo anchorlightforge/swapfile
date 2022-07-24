@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Enemy_Standard : Enemy
 {
-
+    [SerializeField] MeshRenderer[] chargeModels;
+    void Awake()
+    {
+        //hide the charger pieces
+        foreach (MeshRenderer chargeModel in chargeModels)
+            chargeModel.gameObject.SetActive(false);
+    }
     protected override void AttackPlayer()
     {
         agent.SetDestination(transform.position);

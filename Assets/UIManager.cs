@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
 
     }
     
-     void SetAmmo(float newAmmo)
+     public void SetAmmo(float newAmmo)
     {
 
         float ammoVal = ((float)ammo) / 100f;
@@ -48,6 +48,12 @@ public class UIManager : MonoBehaviour
             pistolAmmo.SetText((ammo / 1).ToString());
             mgAmmo.SetText((ammo/2).ToString());
             sgAmmo.SetText((ammo / 5).ToString());
+        }
+        else
+        {
+            pistolAmmo.SetText((health/ 1).ToString()+" HP");
+            mgAmmo.SetText((health / 2).ToString()+ " HP") ;
+            sgAmmo.SetText((health / 5).ToString()+" HP");
         }
     }
 

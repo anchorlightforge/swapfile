@@ -50,7 +50,15 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
+    public void SetSensitivity (float newSens)
+    {
+        mouseSensitivity = newSens;
+        var player = FindObjectOfType<PlayerMovement>();
+        if (player!=null)
+            player.SetSensitivity(mouseSensitivity);
+    }
+    float mouseSensitivity;
+    public float MouseSensitivity => mouseSensitivity;
     public void StageComplete()
     {
         highestStage++;

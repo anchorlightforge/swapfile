@@ -16,10 +16,12 @@ public class WeaponHandling : MonoBehaviour
     {
         musicMan = FindObjectOfType<MusicManager>();
         camDir = Camera.main.transform;
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Healthbar>();
     }
+    Healthbar playerHealth;
 
 
-   
+
 
     // Update is called once per frame
     void Update()
@@ -27,25 +29,32 @@ public class WeaponHandling : MonoBehaviour
 
         if (timeToNextFire > 0) timeToNextFire -= Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && CanFire())
+        if (inputEnabled)
         {
-            Fire();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwitchWeapon(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchWeapon(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwitchWeapon(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SwitchWeapon(3);
+            if (Input.GetButton("Fire1") && CanFire())
+            {
+                Fire();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (currentWeapon != 0)
+                    SwitchWeapon(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (currentWeapon != 1)
+                    SwitchWeapon(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                if (currentWeapon != 2)
+                    SwitchWeapon(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (currentWeapon != 3)
+                    SwitchWeapon(3);
+            }
         }
 
     }
@@ -67,14 +76,21 @@ public class WeaponHandling : MonoBehaviour
 
     [SerializeField] Weapon[] weapons;
     int currentWeapon;
+    int ammo = 50;
     [SerializeField] ParticleSystem gunFX;
     float timeToNextFire;
     [SerializeField] float fireRate;
 
+    public void AddAmmo(int ammoAdded)
+    {
+        ammo += ammoAdded;
+        FindObjectOfType<UIManager>().SetAmmo(ammo);
+    }
 
     public void SwitchWeapon (int newWeapon)
     {
-        if (weapons[newWeapon].unlocked)
+        if (weapons[newWeapon].unlocked && newWeapon!=currentWeapon)
+   
         {
 
             gunModels.SwitchWeapon(newWeapon);
@@ -86,7 +102,12 @@ public class WeaponHandling : MonoBehaviour
     {
         return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
     }
-
+    [SerializeField] GameObject hitDecal;
+    
+    
+    bool inputEnabled = true;
+    public void EnableInput(bool enable)
+    { inputEnabled = enable; }
     public void Fire()
 
     {
@@ -99,13 +120,29 @@ public class WeaponHandling : MonoBehaviour
         {
             if (Physics.Raycast(camDir.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
             {
+                var gunHit = Instantiate(hitDecal, gunCheck.point,Quaternion.LookRotation(gunCheck.normal));
+                Destroy(gunHit, 5f);
                 if (gunCheck.transform.TryGetComponent(out Enemy enemy))
                     enemy.TakeDamage(weapons[currentWeapon].damage);
+                else if(gunCheck.transform.TryGetComponent(out Healthbar hitHealth))
+                {
+                    hitHealth.hbHealth -= weapons[currentWeapon].damage;
+                    if (hitHealth.hbHealth < 0)
+                        hitHealth.HealthBarBreak();
+                }
                 //deal damage if enemy found
             }
-        Debug.DrawRay(camDir.position, camDir.forward + offset, Color.yellow, .5f);
+            Debug.Log(gunCheck.point);
+        Debug.DrawLine(camDir.position, camDir.position + (camDir.forward+ offset)*weapons[currentWeapon].range, Color.yellow, .5f);
         }
         gunModels.Shoot(weapons[currentWeapon].knockBack,weapons[currentWeapon].fireRate);
+        ammo -= weapons[currentWeapon].healthCost;
+        if(ammo<0)
+        {
+            playerHealth.Hurt(Mathf.Abs(ammo/2));
+            ammo = 0;
+        }
+        FindObjectOfType<UIManager>().SetAmmo(ammo);
     }
 
     bool CanFire()

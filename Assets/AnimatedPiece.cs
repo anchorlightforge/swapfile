@@ -12,16 +12,21 @@ public class AnimatedPiece : MonoBehaviour
     [SerializeField] float trackingNoise = .1f;
     float nextNoise;
     Quaternion startRot;
+
+    public void ChangeNoUseRange(float newRange)
+    {
+        noUseRange = newRange;
+    }
     void Awake()
     {
         startRot = transform.localRotation;
+        if(!frame)
+        target = new GameObject(gameObject.name + " Refpoint").transform;
+        offset = transform.localPosition;
 
     }
     void Start()
     {
-        if(!frame)
-        target = new GameObject(gameObject.name + " Refpoint").transform;
-        offset = transform.localPosition;
     }
 
     public void Activate()

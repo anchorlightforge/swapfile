@@ -11,9 +11,10 @@ public class LineGunConnector : MonoBehaviour
     void Start()
     {
         foreach (Transform obj in GetComponentsInChildren<Transform>())
-            if (!obj.gameObject.active) Destroy(obj.gameObject);
+            if (!obj.gameObject.activeSelf) Destroy(obj.gameObject);
         objects = GetComponentsInChildren<Transform>();
-        line = GetComponent<LineRenderer>(); 
+        line = GetComponent<LineRenderer>();
+        line.positionCount= objects.Length;
     }
 
     // Update is called once per frame

@@ -33,12 +33,14 @@ public class Healthbar : MonoBehaviour, IHealth
     // Start is called before the first frame update
     void Start()
     {
+        foley = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         _rend = GetComponent<MeshRenderer>();
         controllerHealth = maxControllerHealth;
         hbHealth = maxHBHealth;
         //assign to the HealthStatsit spawned with
         //if(transform.parent)controller = transform.parent.GetComponent<HealthStats>();
+        if(currentOwner==null)currentOwner = transform.parent.gameObject;
         //if(controller)currentOwner = controller;
         //controller.BindHP(this);
         //currentOwner.AssignHB(this);
@@ -53,6 +55,15 @@ public class Healthbar : MonoBehaviour, IHealth
         
     }
 
+    public void HealthBarBreak()
+    {
+        pickupHealth = controllerHealth/4;
+        controllerHealth = 1;
+        Decouple();
+        pickup = true;
+    }
+    bool pickup;
+    int pickupHealth = 0;
     public void TakeDamage(int damage)
     {
         // if bar is active and doesn't belong to the player
@@ -89,6 +100,7 @@ public class Healthbar : MonoBehaviour, IHealth
                     diss.Dissolve(this);
                 else if (currentOwner.CompareTag("Player"))
                 {
+                    currentOwner.GetComponent<PlayerMovement>().Death();
                     //endgame condition failure
                 }
             }
@@ -99,18 +111,42 @@ public class Healthbar : MonoBehaviour, IHealth
     {
         float currentPer = (float)controllerHealth / (float)maxControllerHealth;
         _rend.material.SetFloat("_ProgressBorder", currentPer);
+        if(currentOwner.CompareTag("Player")) FindObjectOfType<UIManager>().SetHealth(currentPer);
     }
 
     public void Heal(int healthGained)
     {
+        if (controllerHealth + healthGained > 100 && this.transform.parent.CompareTag("Player"))
+        {
+            FindObjectOfType<WeaponHandling>().AddAmmo(healthGained + controllerHealth - 100);
+        }
         controllerHealth = Mathf.Clamp(controllerHealth + healthGained, 0, maxControllerHealth);
         UpdateHealth();
     }
+    bool down;
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(down)
+        {
+            foley.PlayOneShot(hitGroundSound);
+        }
+        if(pickup && collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerMovement>().currentHealthbar.Heal(pickupHealth);
+            this.gameObject.SetActive(false);
+        }
+    }
+    AudioSource foley;
+[SerializeField]    AudioClip hitGroundSound;
 
     public void Decouple()
     {
+        GetComponent<MeshCollider>().isTrigger = false;
         rb.isKinematic = false;
         rb.useGravity = true;
+        down = true;
+        rb.AddTorque(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)) * 15);
         //remove reference to current owner
         currentOwner = null;
        // if (OnDropped != null)

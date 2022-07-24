@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1822639494375413343}
   - component: {fileID: 1822639494375413340}
+  - component: {fileID: 469730148367642945}
   m_Layer: 0
   m_Name: Enemy_Drone
   m_TagString: Untagged
@@ -64,7 +65,7 @@ Transform:
   - {fileID: 2825316707773825109}
   - {fileID: 1060688606370479342}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1822639494375413340
 NavMeshAgent:
@@ -88,6 +89,22 @@ NavMeshAgent:
   m_BaseOffset: 6
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &469730148367642945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822639494375413341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafef1c1ffe0eb540a9db49c75813f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolve: -1
+  maxDissolve: 0.64
+  minDissolve: -1
+  dissolveSpeed: 8
 --- !u!1 &9078671811027281638
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +169,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2768153728811153556, guid: fe9a573e5eee04a409096388a5b6e541, type: 3}
     - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+      propertyPath: currentMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
       propertyPath: firePosition1
       value: 
       objectReference: {fileID: 2825316707773825109}
@@ -159,6 +180,10 @@ PrefabInstance:
       propertyPath: firePosition2
       value: 
       objectReference: {fileID: 1060688606370479342}
+    - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7394411480606088321, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
       propertyPath: m_RootOrder
       value: 0

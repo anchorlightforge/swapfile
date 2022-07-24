@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour, IHealth
     // Start is called before the first frame update
     void Start()
     {
+        var spawn = GameObject.FindGameObjectWithTag("SpawnPoint");
+        if (spawn != null) transform.position = spawn.transform. position;
         Unpause();
         charControl = GetComponent<CharacterController>();
         camDir = Camera.main.transform;
@@ -139,7 +141,7 @@ public class PlayerMovement : MonoBehaviour, IHealth
 
         stamina = Mathf.Clamp(stamina + Time.deltaTime, 0, maxStamina);
         Vector3 moveDir = new Vector3(moveHor, 0, moveVert);
-        moveDir = moveDir.x * camDir.right.normalized + moveDir.z * camDir.forward.normalized;
+        moveDir = moveDir.x * camDir.right.normalized + moveDir.z * transform.forward.normalized;
 
         Vector3 moveVel = (moveDir * moveSpeed);
         // Vector3 moveDir = (new Vector3(moveHor,0f,moveVert).normalized + transform.forward);
@@ -155,14 +157,31 @@ public class PlayerMovement : MonoBehaviour, IHealth
                 transform.eulerAngles.y, transform.eulerAngles.z);
 
         playerEyes.transform.rotation = Quaternion.Euler(rotEyesEuler);
-        Debug.Log(joyLookHor + " " + joyLookVert);
+    /*    Debug.Log(joyLookHor + " " + joyLookVert);
+*/
 
+    }
 
+    public void Death()
+    {
+        inputEnabled = false;
+        var obj = transform.GetChild(0);
+        obj.GetComponent<BoxCollider>().enabled = true;
+        obj.GetComponent<Rigidbody>().isKinematic = false;
+        charControl.enabled = false;
+        FindObjectOfType<UIManager>().DeathScreen();
+        FindObjectOfType<GunEffects>().SwitchWeapon(4);
+        FindObjectOfType<WeaponHandling>().EnableInput(false);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealthbar.Hurt(damage);
+    }
+
+    public void SetSensitivity (float newSens)
+    {
+        lookSpeed = newSens;
     }
 
     [SerializeField] float moveSpeed = 10;

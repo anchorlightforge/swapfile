@@ -13,7 +13,7 @@ public class Rotate : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         transform.Rotate(dir.normalized * speed*Time.deltaTime);
     }

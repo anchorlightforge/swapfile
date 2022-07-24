@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour,IHealth
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float walkPointRange;
-    public Renderer enemyMaterial;
+    public MeshRenderer[] enemyMaterials;
     protected Color originalColor;
     public float flashTime;
 
@@ -51,10 +51,16 @@ public class Enemy : MonoBehaviour,IHealth
             agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         currentMode = EnemyModes.Inactive;
-        enemyMaterial = GetComponent<Renderer>();
-        originalColor = enemyMaterial.material.color;
+        enemyMaterials = GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < enemyMaterials.Length; i++)
+        {
+        originalColor = enemyMaterials[i].material.color;
+        }
     }
-
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     protected virtual void Update()
     {
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -126,8 +132,10 @@ public class Enemy : MonoBehaviour,IHealth
 
     public virtual IEnumerator EFlash(Color coloring)
     {
+        foreach(MeshRenderer enemyMaterial in enemyMaterials)
         enemyMaterial.material.color = coloring;
         yield return new WaitForSeconds(flashTime);
-        enemyMaterial.material.color = originalColor;
+        foreach (MeshRenderer enemyMaterial in enemyMaterials)
+            enemyMaterial.material.color = originalColor;
     }
 }

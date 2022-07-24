@@ -7,10 +7,19 @@ public class Enemy_Charger : Enemy
     [SerializeField] float chargeForce;
     [SerializeField] int chargeAttackDamage;
     [SerializeField] bool isCharging = false;
+    [SerializeField] MeshRenderer[] standardModels;
     protected override void ChasePlayer()
     {
         base.ChasePlayer();
         transform.LookAt(player);
+    }
+
+    void Awake()
+    {
+        foreach (MeshRenderer obj in standardModels)
+        {
+            obj.gameObject.SetActive(false);
+        }
     }
 
     protected override void AttackPlayer()
@@ -41,7 +50,8 @@ public class Enemy_Charger : Enemy
     {
         base.ResetAttack();
         rb.velocity = Vector3.zero;
-        enemyMaterial.material.color = originalColor;
+        foreach (MeshRenderer enemyMaterial in enemyMaterials)
+            enemyMaterial.material.color = originalColor;
         isCharging = false;
     }
     void ChargeAttack()
@@ -65,7 +75,8 @@ public class Enemy_Charger : Enemy
 
     IEnumerator FlashNDash()
     {
-        enemyMaterial.material.color = Color.red;
+        foreach (MeshRenderer enemyMaterial in enemyMaterials)
+            enemyMaterial.material.color = Color.red;
         transform.LookAt(player);
         yield return new WaitForSeconds(1f);
 

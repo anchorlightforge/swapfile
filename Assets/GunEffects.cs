@@ -35,6 +35,7 @@ public class GunEffects : MonoBehaviour
     [SerializeField] WeaponSound[] gunSounds;
     [SerializeField] AudioClip switchWeaponSound;
     [SerializeField] float pitchShift = .25f;
+
     public void SwitchWeapon(int weapon)
     {
         currentWeapon = weapon;
@@ -70,6 +71,14 @@ public class GunEffects : MonoBehaviour
                 foreach (AnimatedPiece mgPiece in machineGunPieces) mgPiece.Hide(hidePoint.localPosition);
                 foreach (AnimatedPiece pistolPiece in pistolPieces) pistolPiece.Hide(hidePoint.localPosition);
                 break;
+            case 4:
+                foreach (AnimatedPiece fistPiece in fistPieces) fistPiece.Hide(hidePoint.localPosition);
+                foreach (AnimatedPiece shotgunPiece in shotgunPieces) shotgunPiece.Hide(hidePoint.localPosition);
+                shotgunPump.Hide(hidePoint.localPosition);
+                foreach (AnimatedPiece mgPiece in machineGunPieces) mgPiece.Hide(hidePoint.localPosition);
+                foreach (AnimatedPiece pistolPiece in pistolPieces) pistolPiece.Hide(hidePoint.localPosition);
+                break;
+
 
 
         }
