@@ -117,7 +117,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkPointRange: 0
-  timeBetweenAttacks: 4
+  enemyMaterial: {fileID: 0}
+  flashTime: 0
+  timeBetweenAttacks: 1.5
   alreadyAttacked: 0
   projectile: {fileID: 0}
   attackRange: 10

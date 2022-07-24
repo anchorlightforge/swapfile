@@ -18,9 +18,11 @@ public class Enemy_Standard : Enemy
 
             if (projectile != null)
             {
+                Vector3 direction = (player.position - transform.position).normalized;
+                Debug.DrawLine(transform.position, direction * 32,Color.black);
                 Rigidbody _rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
                 _rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-                _rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+                //_rb.AddForce(transform.up * 8f, ForceMode.Impulse);
             }
 
             alreadyAttacked = true;

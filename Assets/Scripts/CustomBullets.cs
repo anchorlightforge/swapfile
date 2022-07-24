@@ -61,7 +61,10 @@ public class CustomBullets : MonoBehaviour
 
             //Add explosion force (if enemy has a rigidbody)
             //if (enemies[i].GetComponent<Rigidbody>())
-                //enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
+            //enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
+            var hitObject = enemies[i].GetComponent<IHealth>();
+            if (hitObject != null)
+                hitObject.TakeDamage(explosionDamage);
         }
 
         //Add a little delay, just to make sure everything works fine
