@@ -13,24 +13,29 @@ public enum EnemyModes
     HasHealth,
     Recovering,
 }
-public class Enemy : MonoBehaviour,IHealth
+public class Enemy : MonoBehaviour, IHealth
 {
     public Rigidbody rb;
 
-   public Healthbar currentHealthBar;
+    public Healthbar currentHealthBar;
     public NavMeshAgent agent;
 
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float walkPointRange;
-    public Renderer enemyMaterial;
-    protected Color originalColor;
+
+    [Header("Materials")]
+    public SkinnedMeshRenderer enemyRenderer;
+    public Material enemyMateral;
+    public Material greenLightMateral;
+    protected Material originalMateral;
+
     public float flashTime;
 
     [Header("Attacking")]
     public float timeBetweenAttacks;
-   [SerializeField] protected bool alreadyAttacked;
+    [SerializeField] protected bool alreadyAttacked;
     public GameObject projectile;
 
     [Header("States")]
@@ -38,7 +43,7 @@ public class Enemy : MonoBehaviour,IHealth
     public bool playerInAttackRange;
 
 
-    
+
     //public float staggerTime;
     //public bool isStaggered;
 
@@ -50,9 +55,11 @@ public class Enemy : MonoBehaviour,IHealth
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+
         currentMode = EnemyModes.Inactive;
-        enemyMaterial = GetComponent<Renderer>();
-        originalColor = enemyMaterial.material.color;
+
+        if (enemyRenderer.materials.Length > 1)
+        originalMateral = enemyRenderer.materials[1];
     }
 
     protected virtual void Update()
@@ -121,13 +128,20 @@ public class Enemy : MonoBehaviour,IHealth
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position,attackRange);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    public virtual IEnumerator EFlash(Color coloring)
+    public virtual IEnumerator EFlash(Color coloring, Material materialling)
     {
-        enemyMaterial.material.color = coloring;
+        ChangeSkinMaterial(materialling, 1);
         yield return new WaitForSeconds(flashTime);
-        enemyMaterial.material.color = originalColor;
+        ChangeSkinMaterial(originalMateral, 1);
+    }
+
+    public void ChangeSkinMaterial(Material mat, int index)
+    {
+        Material[] mats = enemyRenderer.materials;
+        mats[index] = mat;
+        enemyRenderer.materials = mats;
     }
 }

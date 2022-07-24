@@ -830,7 +830,7 @@ PrefabInstance:
       objectReference: {fileID: 1644798424}
     - target: {fileID: 8758590524243547717, guid: dd1f6b6ba699a7e4fa6a8b7284d9ba64, type: 3}
       propertyPath: currentMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8758590524243547717, guid: dd1f6b6ba699a7e4fa6a8b7284d9ba64, type: 3}
       propertyPath: timeBetweenAttacks

@@ -41,7 +41,8 @@ public class Enemy_Charger : Enemy
     {
         base.ResetAttack();
         rb.velocity = Vector3.zero;
-        enemyMaterial.material.color = originalColor;
+
+        ChangeSkinMaterial(originalMateral, 1);
         isCharging = false;
     }
     void ChargeAttack()
@@ -65,7 +66,7 @@ public class Enemy_Charger : Enemy
 
     IEnumerator FlashNDash()
     {
-        enemyMaterial.material.color = Color.red;
+            ChangeSkinMaterial(enemyMateral, 1);
         transform.LookAt(player);
         yield return new WaitForSeconds(1f);
 
