@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Emissive
-    second: {fileID: 2100000, guid: f4f0fb6c032ab7640b2fad051e0ceba5, type: 2}
+    second: {fileID: 2100000, guid: a98f0dd9a5df8ec43adc17c39bfd8792, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
