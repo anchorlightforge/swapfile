@@ -26,9 +26,15 @@ public class GunEffects : MonoBehaviour
     }
     int currentWeapon;
     AudioSource foley;
+    [System.Serializable] struct WeaponSound
+    {
+        string name;
+        public AudioClip[] shootSound;
+    public AudioSource weaponFoley;
+    }
+    [SerializeField] WeaponSound[] gunSounds;
     [SerializeField] AudioClip switchWeaponSound;
     [SerializeField] float pitchShift = .25f;
-    [SerializeField] AudioSource[] weaponFoley;
     public void SwitchWeapon(int weapon)
     {
         currentWeapon = weapon;
@@ -83,7 +89,7 @@ public class GunEffects : MonoBehaviour
 
     public void Shoot(float knockback, float fireRate)
     {
-        PlayAudioRandom(weaponFoley[currentWeapon], shootSound[currentWeapon]);
+        PlayAudioRandom(gunSounds[currentWeapon].weaponFoley, gunSounds[currentWeapon].shootSound);
         StartCoroutine(Knockback(knockback, fireRate));
     }
     float knockBack = 0;
