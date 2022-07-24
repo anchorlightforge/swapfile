@@ -10,6 +10,8 @@ public class LineGunConnector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Transform obj in GetComponentsInChildren<Transform>())
+            if (!obj.gameObject.active) Destroy(obj.gameObject);
         objects = GetComponentsInChildren<Transform>();
         line = GetComponent<LineRenderer>(); 
     }

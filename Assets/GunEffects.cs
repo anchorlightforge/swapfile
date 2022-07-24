@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GunEffects : MonoBehaviour
 {
+    Transform camDir;
     [SerializeField] AnimatedPiece[] fistPieces;
     [SerializeField] AnimatedPiece[] shotgunPieces;
     [SerializeField] AnimatedPiece shotgunPump;
@@ -11,17 +12,28 @@ public class GunEffects : MonoBehaviour
     [SerializeField] AnimatedPiece[] pistolPieces;
     [SerializeField] Transform hidePoint;
     // Start is called before the first frame update
+    Vector3 defaultPos;
     void Start()
     {
+        camDir = Camera.main.transform;
+        foley = GetComponent<AudioSource>();
+        defaultPos = transform.localPosition;
         SwitchWeapon(0);
         foreach (AnimatedPiece piece in fistPieces)
         {
             //set offset
         }
     }
-
+    int currentWeapon;
+    AudioSource foley;
+    [SerializeField] AudioClip switchWeaponSound;
+    [SerializeField] float pitchShift = .25f;
+    [SerializeField] AudioSource[] weaponFoley;
     public void SwitchWeapon(int weapon)
     {
+        currentWeapon = weapon;
+        foley.pitch = 1+ Random.Range(0,pitchShift);
+        foley.PlayOneShot(switchWeaponSound);
         switch(weapon)
         {
             case 0:
@@ -56,16 +68,45 @@ public class GunEffects : MonoBehaviour
 
         }
     }
-
+    [SerializeField] float moveRate = 1.2f;
+    [SerializeField] float swayAmp = 1;
+    [SerializeField] float swayFreq = 1;
     // Update is called once per frame
     void Update()
     {
+        transform.localPosition = Vector3.Lerp(transform.localPosition,defaultPos + (knockBack*Vector3.back) + Vector3.up*(swayAmp*Mathf.Sin(Time.time * swayFreq)),moveRate*Time.deltaTime);
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchWeapon(0);
         }
     }
 
+    public void Shoot(float knockback, float fireRate)
+    {
+        PlayAudioRandom(weaponFoley[currentWeapon], shootSound[currentWeapon]);
+        StartCoroutine(Knockback(knockback, fireRate));
+    }
+    float knockBack = 0;
+
+    void PlayAudioRandom(AudioSource source, AudioClip[] sounds)
+    {
+        int rng = Random.Range(0, sounds.Length - 1);
+        source.pitch = 1 + Random.Range(-.02f, .02f);
+        source.PlayOneShot(sounds[rng]);
+    }
+
+
+    IEnumerator Knockback(float knockback,float fireRate)
+    {
+
+        knockBack = knockback; 
+        yield return new WaitForSeconds(fireRate / 8);
+
+        knockBack = 0;
+        yield return new WaitForSeconds(fireRate / 2);
+
+
+    }
     void ShotgunFire()
     {
         StartCoroutine(Pump());

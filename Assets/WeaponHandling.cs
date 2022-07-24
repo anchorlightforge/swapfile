@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Game.Music;
 
 public class WeaponHandling : MonoBehaviour
 {
     [SerializeField] GunEffects gunModels;
     Transform camDir;
+
+
+    MusicManager musicMan;
     [SerializeField] LayerMask enemyMask;
     // Start is called before the first frame update
     void Start()
     {
+        musicMan = FindObjectOfType<MusicManager>();
         camDir = Camera.main.transform;
     }
+
+
+   
 
     // Update is called once per frame
     void Update()
@@ -52,6 +59,7 @@ public class WeaponHandling : MonoBehaviour
         public int healthCost;
         public int damage;
         public float fireRate;
+        public float knockBack;
         public float range;
         public int flechettes;
         public float spread;
@@ -82,6 +90,7 @@ public class WeaponHandling : MonoBehaviour
     public void Fire()
 
     {
+        musicMan.ShootGun();
         timeToNextFire = weapons[currentWeapon].fireRate;
         gunFX.Play();
         RaycastHit gunCheck;
@@ -94,8 +103,9 @@ public class WeaponHandling : MonoBehaviour
                     enemy.TakeDamage(weapons[currentWeapon].damage);
                 //deal damage if enemy found
             }
-        }
         Debug.DrawRay(camDir.position, camDir.forward + offset, Color.yellow, .5f);
+        }
+        gunModels.Shoot(weapons[currentWeapon].knockBack,weapons[currentWeapon].fireRate);
     }
 
     bool CanFire()
