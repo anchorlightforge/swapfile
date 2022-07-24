@@ -20,6 +20,13 @@ public class PlayerMovement : MonoBehaviour, IHealth
         camDir = Camera.main.transform;
     }
 
+    public void MouseUnlock()
+    {
+        inputEnabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+    }
     public void Pause()
     {
         inputEnabled = false;
@@ -166,6 +173,7 @@ public class PlayerMovement : MonoBehaviour, IHealth
     {
         inputEnabled = false;
         var obj = transform.GetChild(0);
+        MouseUnlock();
         obj.GetComponent<BoxCollider>().enabled = true;
         obj.GetComponent<Rigidbody>().isKinematic = false;
         charControl.enabled = false;

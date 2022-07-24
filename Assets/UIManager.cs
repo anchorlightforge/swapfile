@@ -10,10 +10,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI pistolAmmo, mgAmmo, sgAmmo;
     // Start is called before the first frame update
     float minHealthVal = -6, maxHealthVal = 8;
+    [SerializeField] TextMeshProUGUI missionText;
     void Start()
     {
+        SetRoomName();
         SetAmmo(1);
         SetHealth(1);
+    }
+
+    void SetRoomName()
+    {
+        int buildIndexNew = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+        missionText.SetText(">DIRECTIVE<\n"+rooms[buildIndexNew].SceneName);
     }
 
     // Update is called once per frame
@@ -51,9 +59,9 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            pistolAmmo.SetText((health/ 1).ToString()+" HP");
-            mgAmmo.SetText((health / 2).ToString()+ " HP") ;
-            sgAmmo.SetText((health / 5).ToString()+" HP");
+            pistolAmmo.SetText((health/ 1).ToString()+" (HP)");
+            mgAmmo.SetText((health / 2).ToString()+ " (HP)") ;
+            sgAmmo.SetText((health / 5).ToString()+" (HP)");
         }
     }
 

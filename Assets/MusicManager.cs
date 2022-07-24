@@ -36,6 +36,14 @@ namespace Game.Music
                 yield return new WaitForSeconds(2);
                 if (lastTimePlayerAttacked < 5) StartCoroutine(FadeIn(shootAudio));
                 else StartCoroutine(FadeOut(shootAudio));
+                if (enemyMan.EnemyActive())
+                {
+                    StartCoroutine(FadeIn(combatAudio));
+                }
+                else
+                {
+                    StartCoroutine(FadeOut(combatAudio));
+                }
             }
         }
 

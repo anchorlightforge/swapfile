@@ -5649,6 +5649,7 @@ MonoBehaviour:
   pistolAmmo: {fileID: 4298323929420436721}
   mgAmmo: {fileID: 4298323930741765398}
   sgAmmo: {fileID: 4298323930447354610}
+  missionText: {fileID: 4298323930317371980}
   rooms:
   - SceneName: Boot
   - SceneName: Main Menu
