@@ -126,6 +126,8 @@ public class Enemy : MonoBehaviour,IHealth
 
     public virtual IEnumerator EFlash(Color coloring)
     {
-        yield return null;
+        enemyMaterial.material.color = coloring;
+        yield return new WaitForSeconds(flashTime);
+        enemyMaterial.material.color = originalColor;
     }
 }

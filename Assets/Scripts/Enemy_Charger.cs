@@ -28,7 +28,7 @@ public class Enemy_Charger : Enemy
 
             ///Attack code here
             isCharging = true;
-            StartCoroutine(EFlash(Color.red));
+            StartCoroutine(FlashNDash());
             ///End of attack code
 
             alreadyAttacked = true;
@@ -63,15 +63,14 @@ public class Enemy_Charger : Enemy
         }
     }
 
-    public override IEnumerator EFlash(Color coloring)
+    IEnumerator FlashNDash()
     {
-        enemyMaterial.material.color = coloring;
+        enemyMaterial.material.color = Color.red;
         transform.LookAt(player);
         yield return new WaitForSeconds(1f);
 
         ChargeAttack();
     }
-
     //public Color Lerp(Color firstColor, Color secondColor, float speed) =>  Color.Lerp(firstColor, secondColor, Mathf.Sin(Time.time* speed));
 
 }

@@ -96,8 +96,8 @@ public class Enemy_Drone : Enemy
             Debug.Log("The Enemy Attacks");
             if (projectile != null)
             {
-                Rigidbody _rb1 = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-                Rigidbody _rb2 = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                Rigidbody _rb1 = Instantiate(projectile, firePosition1.position/*transform.position*/, Quaternion.identity).GetComponent<Rigidbody>();
+                Rigidbody _rb2 = Instantiate(projectile, firePosition2.position/*transform.position*/, Quaternion.identity).GetComponent<Rigidbody>();
                 _rb1.AddForce(transform.forward * 32f, ForceMode.Impulse);
                 _rb2.AddForce(transform.forward * 32f, ForceMode.Impulse);
             }
@@ -140,6 +140,7 @@ public class Enemy_Drone : Enemy
         {
             currentHealthCapacitor = Mathf.Clamp(currentHealthCapacitor + healthBarLocation.GetComponent<Healthbar>().containedRemainingHealth, 0, maxHealthCapacitor);
             Destroy(healthBarLocation);
+            StartCoroutine(EFlash(Color.green));
             currentMode = EnemyModes.HasHealth;
         }
         else
@@ -158,6 +159,7 @@ public class Enemy_Drone : Enemy
             {
                 transform.LookAt(FindClosestEnemyFromRange().gameObject.transform);
                 FindClosestEnemyFromRange().currentHealthBar.Heal((int)currentHealthCapacitor);
+                FindClosestEnemyFromRange().EFlash(Color.green);
                 currentMode=EnemyModes.Active;
             }
         }
@@ -195,11 +197,5 @@ public class Enemy_Drone : Enemy
             }
         }
         return closestEnemy;
-    }
-
-    IEnumerator EFlash(Color coloring)
-    {
-        enemyMaterial.material.color = coloring;
-        yield return new WaitForSeconds(5);
     }
 }
