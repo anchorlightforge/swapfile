@@ -17,15 +17,16 @@ public class PlayerMovement : MonoBehaviour
         camDir = Camera.main.transform;
     }
 
-    void Pause()
+    public void Pause()
     {
         inputEnabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0;
+        FindObjectOfType<UIManager>().PauseMenu();
     }
 
-    void Unpause()
+    public void Unpause()
     {
         inputEnabled = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -82,6 +83,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
         if(GroundCheck())
         {
             

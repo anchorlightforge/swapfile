@@ -27,18 +27,30 @@ public class GameManager : MonoBehaviour
         LoadGame();
     }
 
+    public void PauseGame()
+    {
+/*        FindObjectOfType<WeaponHandling>().InputEnabled(false);*/
+    }
+
     void Unpause()
     {
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
         Time.timeScale = 1;
+        FindObjectOfType<PlayerMovement>().Unpause();
     }
 
-    void LoadStage(int nextStageToLoad)
+    public void LoadStage(int nextStageToLoad)
     {
         Unpause();
         SceneManager.LoadScene(nextStageToLoad);
     }
+
+    public void RestartStage() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void StageComplete()
     {
         highestStage++;

@@ -178,7 +178,7 @@ AudioMixerController:
     - 1ff3324046f7bb04784f0e5da3303c77
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: -2112666773048090514}
+  m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -220,14 +220,14 @@ AudioMixerSnapshotController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Basleine
+  m_Name: Baseline
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: eb67cc77d87889a4996a62faf2c70875
   m_FloatValues:
     4d981df1b51ce564cbf3ed4774cebd5f: -61.480442
     460ecf240c57a674da254306a0af66f5: -62.561813
     04353687c5445244195ac5d59dae79c4: 0
-    434015791f7349848b14b9ce2135a9c7: -61.480442
+    434015791f7349848b14b9ce2135a9c7: -0.08374829
     7e7653f9f3a359749aa5d9a36530f483: 1
     8828407a6cdd0c6438f628a47f40a09d: 0
   m_TransitionOverrides: {}

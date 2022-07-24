@@ -14,12 +14,14 @@ namespace Game.Music
     }
     public class MusicManager : MonoBehaviour
     {
+        EnemyManager enemyMan;
         float lastTimePlayerAttacked = 5f;
         [SerializeField] AudioSource combatAudio, mainAudio, shootAudio;
         // Start is called before the first frame update
         void Start()
         {
-
+            StartCoroutine(MusicChecker());
+            enemyMan = FindObjectOfType<EnemyManager>();
         }
 
         public void ShootGun()
@@ -27,6 +29,15 @@ namespace Game.Music
             lastTimePlayerAttacked = 0;
         }
 
+        IEnumerator MusicChecker()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(2);
+                if (lastTimePlayerAttacked < 5) StartCoroutine(FadeIn(shootAudio));
+                else StartCoroutine(FadeOut(shootAudio));
+            }
+        }
 
         IEnumerator FadeIn(AudioSource nextMusic)
 
