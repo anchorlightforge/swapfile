@@ -14,6 +14,9 @@ public class EnemyDissolutionHandler : MonoBehaviour
     /// </summary>
     [SerializeField] bool multiRend;
     MeshRenderer[] _rends;
+
+    public delegate void AnnounceDeath();
+    public static event AnnounceDeath OnDeathAnnounced;
     void Start()
     {
         if(!multiRend)
@@ -27,12 +30,13 @@ public class EnemyDissolutionHandler : MonoBehaviour
         
     }
 
-    public void Dissolve(Healthbar currentBar)
+    public void Dissolve(Healthbar currentBar,bool destroyHealth)
     {
-        StartCoroutine(Dissolution(currentBar));
+        StartCoroutine(Dissolution(currentBar,destroyHealth));
+        StartCoroutine(Dissolution(currentBar,destroyHealth));
     }
 
-    IEnumerator Dissolution(Healthbar currentBar)
+    IEnumerator Dissolution(Healthbar currentBar, bool destroyHealhBar)
     {
         while(dissolve<maxDissolve)
         {
@@ -47,8 +51,11 @@ public class EnemyDissolutionHandler : MonoBehaviour
         }
         currentBar.transform.parent = null;
         currentBar.Decouple();
+        if(OnDeathAnnounced != null)
+            OnDeathAnnounced();
         Destroy(this.gameObject);
-
+        if(destroyHealhBar)
+            Destroy(currentBar.gameObject);
     }
 
     // Update is called once per frame

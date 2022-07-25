@@ -119,7 +119,7 @@ MonoBehaviour:
   isPlayer: 0
   bounciness: 0
   useGravity: 0
-  explosionDamage: 17
+  explosionDamage: 15
   explosionRange: 0
   explosionForce: 0
   maxCollisions: 0

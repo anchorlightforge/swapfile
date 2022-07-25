@@ -8,12 +8,24 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4648414607157468320, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752190880054370159, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5666683666477949790, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_Name
       value: EnemyCharger
       objectReference: {fileID: 0}
     - target: {fileID: 6645870814107353662, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186684742923789082, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7566300050256176358, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
@@ -59,6 +71,14 @@ PrefabInstance:
     - target: {fileID: 7566300050256176358, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968392185184311225, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002528019158104493, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1760783591034811325, guid: 3d58df7c099b06b448d8f76610dc6de1, type: 3}

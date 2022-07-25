@@ -5,16 +5,22 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
     //Display text for ammo
     [SerializeField] MeshRenderer healthRend, ammoRend;
     [SerializeField] TextMeshProUGUI pistolAmmo, mgAmmo, sgAmmo;
     // Start is called before the first frame update
     float minHealthVal = -6, maxHealthVal = 8;
     [SerializeField] TextMeshProUGUI missionText;
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         SetRoomName();
-        SetAmmo(1);
+        SetAmmo(50);
         SetHealth(1);
     }
 
@@ -39,7 +45,7 @@ public class UIManager : MonoBehaviour
         public string SceneName;
     }
     [SerializeField] SceneInfo[] rooms;
-    public void SetHealth(float healthPercent, float ammoPercent = 0)
+    public void SetHealth(float healthPercent)
     {
         float healthPer = Mathf.Lerp(minHealthVal, maxHealthVal, healthPercent);
         healthRend.material.SetFloat("_ProgressBorder", healthPer);
@@ -49,7 +55,8 @@ public class UIManager : MonoBehaviour
      public void SetAmmo(float newAmmo)
     {
 
-        float ammoVal = ((float)ammo) / 100f;
+        float ammoVal = ((float)ammo) / 50f;
+        //ammoVal = (ammoVal * 14) - 6;
         float ammoPer = Mathf.Lerp(minHealthVal, maxHealthVal, ammoVal);
         ammoRend.material.SetFloat("_ProgressBorder", ammoPer);
         ammo = (int)newAmmo;
