@@ -17,6 +17,7 @@ public class WeaponHandling : MonoBehaviour
         musicMan = FindObjectOfType<MusicManager>();
         camDir = Camera.main.transform;
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Healthbar>();
+        UIManager.Instance.SetAmmo(ammo);
     }
     Healthbar playerHealth;
 
@@ -84,7 +85,7 @@ public class WeaponHandling : MonoBehaviour
     public void AddAmmo(int ammoAdded)
     {
         ammo += ammoAdded;
-        FindObjectOfType<UIManager>().SetAmmo(ammo);
+        UIManager.Instance.SetAmmo(ammo);
     }
 
     public void SwitchWeapon (int newWeapon)
@@ -122,15 +123,22 @@ public class WeaponHandling : MonoBehaviour
             {
                 var gunHit = Instantiate(hitDecal, gunCheck.point,Quaternion.LookRotation(gunCheck.normal));
                 Destroy(gunHit, 5f);
-                if (gunCheck.transform.TryGetComponent(out Enemy enemy))
-                    enemy.TakeDamage(weapons[currentWeapon].damage);
-                else if(gunCheck.transform.TryGetComponent(out Healthbar hitHealth))
+
+                var hitObject =gunCheck.collider.GetComponent<IHealth>();
+                if (hitObject != null)
+                    hitObject.TakeDamage(weapons[currentWeapon].damage);
+                /*if (gunCheck.transform.TryGetComponent(out IHealth enemy))
                 {
-                    hitHealth.hbHealth -= weapons[currentWeapon].damage;
-                    if (hitHealth.hbHealth < 0)
-                        hitHealth.HealthBarBreak();
-                }
-                //deal damage if enemy found
+                    enemy.TakeDamage(weapons[currentWeapon].damage);
+                }*/
+
+                    /*else if(gunCheck.transform.TryGetComponent(out Healthbar hitHealth))
+                    {
+                        hitHealth.hbHealth -= weapons[currentWeapon].damage;
+                        if (hitHealth.hbHealth < 0)
+                            hitHealth.HealthBarBreak();
+                    }*/
+                    //deal damage if enemy found
             }
             Debug.Log(gunCheck.point);
         Debug.DrawLine(camDir.position, camDir.position + (camDir.forward+ offset)*weapons[currentWeapon].range, Color.yellow, .5f);
@@ -142,7 +150,7 @@ public class WeaponHandling : MonoBehaviour
             playerHealth.Hurt(Mathf.Abs(ammo/2));
             ammo = 0;
         }
-        FindObjectOfType<UIManager>().SetAmmo(ammo);
+        UIManager.Instance.SetAmmo(ammo);
     }
 
     bool CanFire()

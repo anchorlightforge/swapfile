@@ -65,7 +65,7 @@ Transform:
   - {fileID: 2825316707773825109}
   - {fileID: 1060688606370479342}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1822639494375413340
 NavMeshAgent:
@@ -105,6 +105,7 @@ MonoBehaviour:
   maxDissolve: 0.64
   minDissolve: -1
   dissolveSpeed: 8
+  multiRend: 0
 --- !u!1 &9078671811027281638
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +174,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+      propertyPath: droneRenderer
+      value: 
+      objectReference: {fileID: 3983185329560441770}
+    - target: {fileID: 6973704571157381483, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
       propertyPath: firePosition1
       value: 
       objectReference: {fileID: 2825316707773825109}
@@ -235,6 +240,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+--- !u!23 &3983185329560441770 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3318111699202360452, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}
+  m_PrefabInstance: {fileID: 1822639494763452206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9211386152393739183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7394411480606088321, guid: 5cf89ebee26ff8d40a8c8bdc82da195d, type: 3}

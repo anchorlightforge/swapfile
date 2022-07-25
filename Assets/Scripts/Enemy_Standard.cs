@@ -5,12 +5,15 @@ using UnityEngine;
 public class Enemy_Standard : Enemy
 {
     [SerializeField] MeshRenderer[] chargeModels;
-    void Awake()
+
+    public override void Awake()
     {
+        base.Awake();
         //hide the charger pieces
         foreach (MeshRenderer chargeModel in chargeModels)
             chargeModel.gameObject.SetActive(false);
     }
+
     protected override void AttackPlayer()
     {
         agent.SetDestination(transform.position);
@@ -25,9 +28,9 @@ public class Enemy_Standard : Enemy
             if (projectile != null)
             {
                 Vector3 direction = (player.position - transform.position).normalized;
-                Debug.DrawLine(transform.position, direction * 32,Color.black);
+                Debug.DrawLine(transform.position, direction * 50,Color.black);
                 Rigidbody _rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-                _rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+                _rb.AddForce(transform.forward * 50f, ForceMode.Impulse);
                 //_rb.AddForce(transform.up * 8f, ForceMode.Impulse);
             }
 

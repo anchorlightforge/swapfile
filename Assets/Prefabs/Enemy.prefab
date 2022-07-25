@@ -4833,7 +4833,7 @@ GameObject:
   - component: {fileID: 8841402580963503864}
   m_Layer: 10
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4854,7 +4854,7 @@ Transform:
   - {fileID: 3650880346033190437}
   - {fileID: 3650880344599163792}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2996719906570521951
 MeshFilter:
@@ -6573,9 +6573,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2615083606592437310, guid: 263434b47279118488c221e4350f811d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -805267727629858028, guid: 263434b47279118488c221e4350f811d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 263434b47279118488c221e4350f811d, type: 3}
       propertyPath: m_Name
       value: Enemy_norig
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476422510553794779, guid: 263434b47279118488c221e4350f811d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -6635,6 +6647,10 @@ PrefabInstance:
     - target: {fileID: 121291738564921648, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.10000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 121291738564921648, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 121291738564921648, guid: 8e0dcc9950c8fee419b9ee6131ebe84d, type: 3}
       propertyPath: m_LocalPosition.x

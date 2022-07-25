@@ -5,14 +5,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour, IHealth
 {
     [SerializeField] Transform playerEyes;
+    public static PlayerMovement instance;
     public Healthbar currentHealthbar;
     CharacterController charControl;
+   public float healthRange;
+   public LayerMask whatIsHealth;
     Transform camDir;
     [SerializeField] float fireRate;
     float timeToNextFire;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         var spawn = GameObject.FindGameObjectWithTag("SpawnPoint");
         if (spawn != null) transform.position = spawn.transform. position;
         Unpause();
@@ -132,9 +136,30 @@ public class PlayerMovement : MonoBehaviour, IHealth
                           Fire();
                       }
           */
-            if (Input.GetButtonDown("Swap"))
+            /*if (Input.GetButtonDown("Swap"))
             {
                 //get 
+                Debug.Log("Button Works");
+                healthInAttackRange = Physics.CheckSphere(transform.position, healthRange, whatIsHealth);
+                if (healthInAttackRange)
+                {
+                    Collider[] healthbars = Physics.OverlapSphere(transform.position, healthRange, whatIsHealth);
+                    foreach (Collider col in healthbars)
+                    {
+                        Debug.Log(col.name);
+                        Healthbar healthy = col.gameObject.GetComponent<Healthbar>();
+                        if (healthy == null)
+                            Debug.Log("Health Not THere");
+                        if (healthy != null)
+                        {
+                            if (healthy.isPickupable)
+                            {
+                                currentHealthbar.Heal(healthy.containedRemainingHealth);
+                                Destroy(healthy);
+                            }
+                        }
+                    }
+                }
                 RaycastHit swapCheck;
                 Physics.Raycast(camDir.position, camDir.forward, out swapCheck, swapRange);
                 if (swapCheck.transform.TryGetComponent(out HealthStats targetHealth))
@@ -142,9 +167,10 @@ public class PlayerMovement : MonoBehaviour, IHealth
                     Healthbar currentHealth = GetComponent<HealthStats>().CurrentHealthbar;
                     FindObjectOfType<SwapManager>().Swap(currentHealth, targetHealth.CurrentHealthbar);
                 }
-            }
+            }*/
         }
 
+        
 
         stamina = Mathf.Clamp(stamina + Time.deltaTime, 0, maxStamina);
         Vector3 moveDir = new Vector3(moveHor, 0, moveVert);
@@ -187,6 +213,11 @@ public class PlayerMovement : MonoBehaviour, IHealth
         currentHealthbar.Hurt(damage);
     }
 
+    public void GrabHealthBar()
+    {
+
+    }
+
     public void SetSensitivity (float newSens)
     {
         lookSpeed = newSens;
@@ -203,4 +234,5 @@ public class PlayerMovement : MonoBehaviour, IHealth
     [SerializeField] float lookSpeed = 100;
     [SerializeField] float yAxisClamp = 45;
     [SerializeField] float fallForceRate, downMomentum, maxSpeed;
+    private bool healthInAttackRange;
 }

@@ -17,7 +17,7 @@ public class Enemy_Drone : Enemy
     public float healTimer;
 
     public Renderer droneRenderer;
-    Color originalColor;
+    //Color originalColor;
 
     public Transform Turrets;
 
