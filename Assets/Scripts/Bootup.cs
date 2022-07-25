@@ -12,6 +12,12 @@ public class Bootup : MonoBehaviour
 
     void StartupMaterials()
     {
+        StartCoroutine(WaitForInput());
+    }
+    IEnumerator WaitForInput()
+    {
+        while(!Input.anyKeyDown)
+            yield return null;
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
     // Update is called once per frame

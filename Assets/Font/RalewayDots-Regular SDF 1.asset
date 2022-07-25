@@ -57,11 +57,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: RalewayDots-Regular SDF
+  m_Name: RalewayDots-Regular SDF 1
   m_EditorClassIdentifier: 
-  hashCode: -1662539873
+  hashCode: 1970276110
   material: {fileID: 4522423817349838029}
-  materialHashCode: 1235254495
+  materialHashCode: -1943077394
   m_Version: 1.1.0
   m_SourceFontFileGUID: a15f01d4715aa03419ad6e75b1ffc5af
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: a15f01d4715aa03419ad6e75b1ffc5af, type: 3}
@@ -1255,7 +1255,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - GLOW_ON
+  - UNDERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -1332,10 +1332,10 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 1024
     - _TextureWidth: 1024
-    - _UnderlayDilate: 0
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
+    - _UnderlayDilate: -0.02
+    - _UnderlayOffsetX: 0.71
+    - _UnderlayOffsetY: 0.34
+    - _UnderlaySoftness: 0.012
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -1350,5 +1350,5 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _UnderlayColor: {r: 0, g: 1825.2128, b: 834.0992, a: 0.5}
   m_BuildTextureStacks: []
