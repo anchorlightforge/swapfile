@@ -115,16 +115,16 @@ public class WeaponHandling : MonoBehaviour
         musicMan.ShootGun();
         timeToNextFire = weapons[currentWeapon].fireRate;
         gunFX.Play();
-        RaycastHit gunCheck;
+        RaycastHit[] gunCheck = new RaycastHit[weapons[currentWeapon].flechettes];
         Vector3 offset = CalculateSpread(weapons[currentWeapon].spread);
         for (int i = 0; i < weapons[currentWeapon].flechettes; i++)
         {
-            if (Physics.Raycast(camDir.position, camDir.forward+offset, out gunCheck, weapons[currentWeapon].range, enemyMask))
+            if (Physics.Raycast(camDir.position, camDir.forward+offset, out gunCheck[i], weapons[currentWeapon].range, enemyMask))
             {
-                var gunHit = Instantiate(hitDecal, gunCheck.point,Quaternion.LookRotation(gunCheck.normal));
+                var gunHit = Instantiate(hitDecal, gunCheck[i].point,Quaternion.LookRotation(gunCheck[i].normal));
                 Destroy(gunHit, 5f);
 
-                var hitObject =gunCheck.collider.GetComponent<IHealth>();
+                var hitObject =gunCheck[i].collider.GetComponent<IHealth>();
                 if (hitObject != null)
                     hitObject.TakeDamage(weapons[currentWeapon].damage);
                 /*if (gunCheck.transform.TryGetComponent(out IHealth enemy))
@@ -140,8 +140,8 @@ public class WeaponHandling : MonoBehaviour
                     }*/
                     //deal damage if enemy found
             }
-            Debug.Log(gunCheck.point);
-        Debug.DrawLine(camDir.position, camDir.position + (camDir.forward+ offset)*weapons[currentWeapon].range, Color.yellow, .5f);
+            Debug.Log(gunCheck[i].point);
+        Debug.DrawLine(camDir.position, gunCheck[i].point, Color.yellow, .5f);
         }
         gunModels.Shoot(weapons[currentWeapon].knockBack,weapons[currentWeapon].fireRate);
         ammo -= weapons[currentWeapon].healthCost;

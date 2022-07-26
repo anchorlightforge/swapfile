@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour, IHealth
         Unpause();
         charControl = GetComponent<CharacterController>();
         camDir = Camera.main.transform;
+        float newLook = FindObjectOfType<GameManager>().GetSensitivity();
+        if (newLook != 0) lookSpeed = newLook;
     }
 
     public void MouseUnlock()

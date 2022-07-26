@@ -26,6 +26,7 @@ public class GunEffects : MonoBehaviour
     }
     int currentWeapon;
     AudioSource foley;
+    [SerializeField] LineGunConnector[] gunLines;
     [System.Serializable] struct WeaponSound
     {
         string name;
@@ -40,6 +41,10 @@ public class GunEffects : MonoBehaviour
     {
         currentWeapon = weapon;
         foley.pitch = 1+ Random.Range(0,pitchShift);
+        foreach(LineGunConnector gunLine in gunLines)
+        {
+            gunLine.ToggleVisuals(gunLine == gunLines[currentWeapon]);
+        }
         foley.PlayOneShot(switchWeaponSound);
         switch(weapon)
         {

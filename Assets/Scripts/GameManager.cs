@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] AudioMixer mixing;
     int highestStage = 1;
     // Start is called before the first frame update
     void Awake()
@@ -25,6 +28,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadGame();
+    }
+
+    public void SetSFXVol(Slider sfxVolSlider)
+    {
+        mixing.SetFloat("sfxVol", sfxVolSlider.value);
+    }
+    public void SetBGMVol(Slider bgmVolSlider)
+    {
+        mixing.SetFloat("bgmVol", bgmVolSlider.value);
     }
 
     public void PauseGame()
@@ -53,6 +65,10 @@ public class GameManager : MonoBehaviour
     public void RestartStage() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public float GetSensitivity()
+    {
+        return mouseSensitivity;
     }
     public void SetSensitivity (float newSens)
     {

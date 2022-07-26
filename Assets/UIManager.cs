@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
@@ -13,15 +13,22 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     float minHealthVal = -6, maxHealthVal = 8;
     [SerializeField] TextMeshProUGUI missionText;
+    TimeSpan gameTimer;
     private void Awake()
     {
         Instance = this;
     }
     void Start()
     {
+        StartTimer();
         SetRoomName();
         SetAmmo(50);
         SetHealth(1);
+    }
+    float startTime;
+    void StartTimer()
+    {
+        startTime = Time.realtimeSinceStartup;
     }
 
     void SetRoomName()
@@ -35,8 +42,13 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        int hours = (int)(Time.timeSinceLevelLoad / 3600f);
+        int minutes = (int)(Time.timeSinceLevelLoad / 60f) % 60;
+        int seconds = (int)(Time.timeSinceLevelLoad % 60f);
+        int milliseconds = (int)(Time.timeSinceLevelLoad * 1000f) % 1000;
+        timerText.text = minutes.ToString("D2") + ":" + seconds.ToString("D2") + ":" + milliseconds.ToString("D2");
     }
+    [SerializeField] TextMeshProUGUI timerText;
     int health;
     int ammo;
     [System.Serializable]

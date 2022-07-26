@@ -5581,7 +5581,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.07
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -5650,6 +5650,7 @@ MonoBehaviour:
   mgAmmo: {fileID: 4298323930741765398}
   sgAmmo: {fileID: 4298323930447354610}
   missionText: {fileID: 4298323930317371980}
+  timerText: {fileID: 0}
   rooms:
   - SceneName: Boot
   - SceneName: Main Menu
@@ -8150,6 +8151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738d9ce800e912047af6c8196f92d2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixing: {fileID: 24100000, guid: a6748e4245eb313449a1f53a33b2ffc1, type: 2}
+  sfxVolSlider: {fileID: 0}
+  bgmVolSlider: {fileID: 0}
 --- !u!1 &4298323930668956274
 GameObject:
   m_ObjectHideFlags: 0

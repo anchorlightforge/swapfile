@@ -156,6 +156,11 @@ MonoBehaviour:
   - {fileID: 2310816235790400875}
   - {fileID: 2310816235790400868}
   hidePoint: {fileID: 2310816236030036870}
+  gunLines:
+  - {fileID: 2310816235704474156}
+  - {fileID: 2310816236230656902}
+  - {fileID: 2310816236131044340}
+  - {fileID: 2310816236341364902}
   gunSounds:
   - shootSound:
     - {fileID: 8300000, guid: b09debd8e8ebf554daf2d5cf9834baa9, type: 3}
@@ -521,7 +526,7 @@ MonoBehaviour:
   groundCheckRange: 1
   swapRange: 100
   joystickEnabled: 0
-  lookSpeed: 4000
+  lookSpeed: 1000
   yAxisClamp: 60
   fallForceRate: 1
   downMomentum: 10

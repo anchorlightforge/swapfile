@@ -125,11 +125,18 @@ public class Healthbar : MonoBehaviour, IHealth
     void UpdateHealth()
     {
         float currentPer = (float)controllerHealth / (float)maxControllerHealth;
+        if(currentOwner!=null)
+        {
+
         if (currentOwner.CompareTag("Enemy"))
             currentPer = (currentPer * 14) - 6;
+        }
         Debug.Log(currentPer);
         _rend.material.SetFloat("_ProgressBorder", currentPer);
-        if (currentOwner.CompareTag("Player")) UIManager.Instance.SetHealth(currentPer);
+        if(currentOwner!=null)
+        {
+            if (currentOwner.CompareTag("Player")) UIManager.Instance.SetHealth(currentPer);
+        }    
     }
 
     public void Heal(int healthGained)
