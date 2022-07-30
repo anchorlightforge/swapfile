@@ -43,6 +43,7 @@ public class GunEffects : MonoBehaviour
         foley.pitch = 1+ Random.Range(0,pitchShift);
         foreach(LineGunConnector gunLine in gunLines)
         {
+            Debug.Log("Current Weapon: " + currentWeapon);
             gunLine.ToggleVisuals(gunLine == gunLines[currentWeapon]);
         }
         foley.PlayOneShot(switchWeaponSound);

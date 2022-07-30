@@ -38,11 +38,19 @@ public class CustomBullets : MonoBehaviour
     private void Update()
     {
         //When to explode:
-        if (collisions > maxCollisions) Explode();
+        if (collisions > maxCollisions)
+        {
+            //Debug.Log("Collision Explosion");
+            Explode();
+        }
 
         //Count down lifetime
         maxLifetime -= Time.deltaTime;
-        if (maxLifetime <= 0) Explode();
+        if (maxLifetime <= 0)
+        {
+            //Debug.Log("Timer Explosion");
+            Explode();
+        }
     }
 
     private void Explode()
@@ -52,6 +60,16 @@ public class CustomBullets : MonoBehaviour
 
         //Check for enemies 
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
+        
+        /*foreach (Collider c in enemies)
+        {
+            var hitObject = c.GetComponent<IHealth>();
+            if(hitObject!=null)
+            {
+                Debug.Log("Take Damage: " + explosionDamage);
+                hitObject.TakeDamage(explosionDamage);
+            }
+        }*/
         for (int i = 0; i < enemies.Length; i++)
         {
             //Get component of enemy and call Take Damage
@@ -64,11 +82,15 @@ public class CustomBullets : MonoBehaviour
             //enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
             var hitObject = enemies[i].GetComponent<IHealth>();
             if (hitObject != null)
+            {
+                Debug.Log("Take Damage: " + explosionDamage);
                 hitObject.TakeDamage(explosionDamage);
+            }
         }
 
         //Add a little delay, just to make sure everything works fine
-        Invoke("Delay", 0.05f);
+        //Invoke("Delay", 0.05f);
+        Delay();
     }
     private void Delay()
     {
@@ -84,7 +106,11 @@ public class CustomBullets : MonoBehaviour
         collisions++;
 
         //Explode if bullet hits an enemy directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag(PlayerOrEnemy) && explodeOnTouch) Explode();
+        if (collision.collider.CompareTag(PlayerOrEnemy) && explodeOnTouch)
+        {
+            Debug.Log("Explosion");
+            Explode();
+        }
     }
 
     private void Setup()

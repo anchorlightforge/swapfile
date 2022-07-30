@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour, IHealth
     }
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+       // player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     protected virtual void Update()
     {

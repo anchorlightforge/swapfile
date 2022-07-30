@@ -6,7 +6,7 @@ public class SafetyScripts : MonoBehaviour
 {
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         var gameMan = FindObjectOfType<GameManager>();
         if (gameMan == null) this.gameObject.AddComponent(typeof(GameManager));

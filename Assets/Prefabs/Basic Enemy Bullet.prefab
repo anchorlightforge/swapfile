@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1125960548723316263}
   m_Layer: 0
   m_Name: Basic Enemy Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   bounciness: 0
   useGravity: 0
   explosionDamage: 15
-  explosionRange: 0
+  explosionRange: 3
   explosionForce: 0
   maxCollisions: 0
   maxLifetime: 5

@@ -200,13 +200,14 @@ public class PlayerMovement : MonoBehaviour, IHealth
     public void Death()
     {
         inputEnabled = false;
+        charControl.enabled = false;
         var obj = transform.GetChild(0);
         MouseUnlock();
         obj.GetComponent<BoxCollider>().enabled = true;
         obj.GetComponent<Rigidbody>().isKinematic = false;
-        charControl.enabled = false;
-        FindObjectOfType<UIManager>().DeathScreen();
-        FindObjectOfType<GunEffects>().SwitchWeapon(4);
+        UIManager.Instance.DeathScreen();
+        //FindObjectOfType<UIManager>().DeathScreen();
+        //FindObjectOfType<GunEffects>().SwitchWeapon(3);
         FindObjectOfType<WeaponHandling>().EnableInput(false);
     }
 

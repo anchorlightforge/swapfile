@@ -96,8 +96,10 @@ public class Healthbar : MonoBehaviour, IHealth
     {
         if (active)
         {
+            Debug.Log("Controller Health: "+controllerHealth);
 
             controllerHealth = Mathf.Clamp(controllerHealth - damage, 0, maxControllerHealth);
+            Debug.Log("Controller Health: " + controllerHealth);
 
             // hbHealth also takes damage if this isn't the player
             if (!currentOwner.CompareTag("Player"))
@@ -131,7 +133,6 @@ public class Healthbar : MonoBehaviour, IHealth
         if (currentOwner.CompareTag("Enemy"))
             currentPer = (currentPer * 14) - 6;
         }
-        Debug.Log(currentPer);
         _rend.material.SetFloat("_ProgressBorder", currentPer);
         if(currentOwner!=null)
         {
